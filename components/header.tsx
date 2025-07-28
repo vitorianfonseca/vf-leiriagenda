@@ -26,25 +26,25 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <Calendar className="h-8 w-8 text-[#D4AF37]" />
-            <span className="text-2xl font-bold text-[#D4AF37]">LeiriAgenda</span>
+            <Calendar className="h-8 w-8 text-[#C17C5D]" />
+            <span className="text-2xl font-bold text-[#C17C5D]">LeiriAgenda</span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+            <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
               {t("nav.home")}
             </Link>
-            <Link href="/eventos" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+            <Link href="/eventos" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
               {t("nav.events")}
             </Link>
-            <Link href="/submeter" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+            <Link href="/submeter" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
               {t("nav.submit")}
             </Link>
-            <Link href="/sobre" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+            <Link href="/sobre" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
               {t("nav.about")}
             </Link>
-            <Link href="/ajuda" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+            <Link href="/ajuda" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
               {t("nav.help")}
             </Link>
           </nav>
@@ -54,7 +54,7 @@ export function Header() {
             {isAuthenticated ? (
               <>
                 <Link href="/favoritos">
-                  <Button variant="ghost" size="sm" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]">
+                  <Button variant="ghost" size="sm" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]">
                     <Heart className="h-4 w-4 mr-2" />
                     {t("nav.favorites")}
                   </Button>
@@ -65,7 +65,7 @@ export function Header() {
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                       <Avatar className="h-8 w-8">
                         <AvatarImage src={user?.avatar || "/placeholder.svg"} alt={user?.name} />
-                        <AvatarFallback className="bg-[#D4AF37] text-white">
+                        <AvatarFallback className="bg-[#C17C5D] text-white">
                           {user?.name?.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
@@ -121,7 +121,7 @@ export function Header() {
             ) : (
               <>
                 <Link href="/favoritos">
-                  <Button variant="ghost" size="sm" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]">
+                  <Button variant="ghost" size="sm" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]">
                     <Heart className="h-4 w-4 mr-2" />
                     {t("nav.favorites")}
                   </Button>
@@ -130,7 +130,7 @@ export function Header() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+                    className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
                   >
                     <User className="h-4 w-4 mr-2" />
                     {t("nav.login")}
@@ -160,22 +160,22 @@ export function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-700">
             <nav className="flex flex-col space-y-4">
-              <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+              <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
                 {t("nav.home")}
               </Link>
-              <Link href="/eventos" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+              <Link href="/eventos" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
                 {t("nav.events")}
               </Link>
               <Link
                 href="/submeter"
-                className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors"
+                className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors"
               >
                 {t("nav.submit")}
               </Link>
-              <Link href="/sobre" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+              <Link href="/sobre" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
                 {t("nav.about")}
               </Link>
-              <Link href="/ajuda" className="text-gray-700 dark:text-gray-300 hover:text-[#D4AF37] transition-colors">
+              <Link href="/ajuda" className="text-gray-700 dark:text-gray-300 hover:text-[#C17C5D] transition-colors">
                 {t("nav.help")}
               </Link>
               <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -185,7 +185,7 @@ export function Header() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]"
+                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]"
                       >
                         <Heart className="h-4 w-4 mr-2" />
                         {t("nav.favorites")}
@@ -195,7 +195,7 @@ export function Header() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]"
+                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]"
                       >
                         <User className="h-4 w-4 mr-2" />
                         {t("nav.profile")}
@@ -205,7 +205,7 @@ export function Header() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]"
+                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]"
                       >
                         <Settings className="h-4 w-4 mr-2" />
                         {t("nav.settings")}
@@ -214,7 +214,7 @@ export function Header() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]"
+                      className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]"
                       onClick={logout}
                     >
                       <LogOut className="h-4 w-4 mr-2" />
@@ -227,7 +227,7 @@ export function Header() {
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#D4AF37]"
+                        className="justify-start text-gray-700 dark:text-gray-300 hover:text-[#C17C5D]"
                       >
                         <Heart className="h-4 w-4 mr-2" />
                         {t("nav.favorites")}
@@ -237,7 +237,7 @@ export function Header() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="justify-start border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+                        className="justify-start border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
                       >
                         <User className="h-4 w-4 mr-2" />
                         {t("nav.login")}

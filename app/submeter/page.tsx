@@ -55,7 +55,7 @@ export default function SubmitEventPage() {
           <div className="container mx-auto px-4 py-6">
             <Link
               href="/"
-              className="inline-flex items-center text-gray-600 hover:text-[#D4AF37] transition-colors mb-4"
+              className="inline-flex items-center text-gray-600 hover:text-[#C17C5D] transition-colors mb-4"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Voltar ao início
@@ -72,7 +72,7 @@ export default function SubmitEventPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Calendar className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                    <Calendar className="h-5 w-5 mr-2 text-[#C17C5D]" />
                     Informações Básicas
                   </CardTitle>
                 </CardHeader>
@@ -166,7 +166,7 @@ export default function SubmitEventPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <MapPin className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                    <MapPin className="h-5 w-5 mr-2 text-[#C17C5D]" />
                     Localização
                   </CardTitle>
                 </CardHeader>
@@ -290,7 +290,7 @@ export default function SubmitEventPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Upload className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                    <Upload className="h-5 w-5 mr-2 text-[#C17C5D]" />
                     Imagem do Evento
                   </CardTitle>
                 </CardHeader>
@@ -311,7 +311,7 @@ export default function SubmitEventPage() {
                 <Button type="button" variant="outline">
                   Guardar Rascunho
                 </Button>
-                <Button type="submit" className="bg-[#D4AF37] hover:bg-[#B8941F] text-white px-8">
+                <Button type="submit" className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white px-8">
                   Submeter Evento
                 </Button>
               </div>

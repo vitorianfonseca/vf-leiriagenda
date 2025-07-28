@@ -63,7 +63,7 @@ export default function MyEventsPage() {
               <p className="text-gray-600">Gerir os eventos que submeteu</p>
             </div>
             <Link href="/submeter">
-              <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">Submeter Novo Evento</Button>
+              <Button className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white">Submeter Novo Evento</Button>
             </Link>
           </div>
 
@@ -80,17 +80,17 @@ export default function MyEventsPage() {
                   <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                       <div className="flex items-center text-gray-600">
-                        <Calendar className="h-4 w-4 mr-2 text-[#D4AF37]" />
+                        <Calendar className="h-4 w-4 mr-2 text-[#C17C5D]" />
                         <span>
                           {new Date(event.date).toLocaleDateString("pt-PT")} às {event.time}
                         </span>
                       </div>
                       <div className="flex items-center text-gray-600">
-                        <MapPin className="h-4 w-4 mr-2 text-[#D4AF37]" />
+                        <MapPin className="h-4 w-4 mr-2 text-[#C17C5D]" />
                         <span>{event.location}</span>
                       </div>
                       <div className="flex items-center text-gray-600">
-                        <Users className="h-4 w-4 mr-2 text-[#D4AF37]" />
+                        <Users className="h-4 w-4 mr-2 text-[#C17C5D]" />
                         <span>
                           {event.attendees}/{event.capacity} participantes
                         </span>
@@ -125,7 +125,7 @@ export default function MyEventsPage() {
               <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum evento submetido</h3>
               <p className="text-gray-600 mb-4">Comece a partilhar os seus eventos com a comunidade!</p>
               <Link href="/submeter">
-                <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">Submeter Primeiro Evento</Button>
+                <Button className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white">Submeter Primeiro Evento</Button>
               </Link>
             </div>
           )}

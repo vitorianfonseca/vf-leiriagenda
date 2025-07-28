@@ -168,16 +168,16 @@ export default function EventsPage() {
           </div>
 
           <div className="flex flex-wrap gap-2 mt-4">
-            <Badge variant="secondary" className="cursor-pointer hover:bg-[#D4AF37] hover:text-white">
+            <Badge variant="secondary" className="cursor-pointer hover:bg-[#C17C5D] hover:text-white">
               🎵 Música (3)
             </Badge>
-            <Badge variant="secondary" className="cursor-pointer hover:bg-[#D4AF37] hover:text-white">
+            <Badge variant="secondary" className="cursor-pointer hover:bg-[#C17C5D] hover:text-white">
               🎨 Arte (2)
             </Badge>
-            <Badge variant="secondary" className="cursor-pointer hover:bg-[#D4AF37] hover:text-white">
+            <Badge variant="secondary" className="cursor-pointer hover:bg-[#C17C5D] hover:text-white">
               🏛️ Cultura (2)
             </Badge>
-            <Badge variant="secondary" className="cursor-pointer hover:bg-[#D4AF37] hover:text-white">
+            <Badge variant="secondary" className="cursor-pointer hover:bg-[#C17C5D] hover:text-white">
               ⚽ Desporto (2)
             </Badge>
           </div>
@@ -214,7 +214,7 @@ export default function EventsPage() {
         <div className="text-center">
           <Button
             variant="outline"
-            className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+            className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
           >
             Carregar mais eventos
           </Button>

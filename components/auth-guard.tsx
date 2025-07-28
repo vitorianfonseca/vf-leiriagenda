@@ -42,7 +42,7 @@ export function AuthGuard({ children, fallback, message }: AuthGuardProps) {
               <p className="text-gray-600 dark:text-gray-400">{message || t("auth.loginMessage")}</p>
               <div className="space-y-2">
                 <Link href="/login" className="block">
-                  <Button className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+                  <Button className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
                     <User className="h-4 w-4 mr-2" />
                     {t("auth.login")}
                   </Button>
@@ -50,7 +50,7 @@ export function AuthGuard({ children, fallback, message }: AuthGuardProps) {
                 <Link href="/registo" className="block">
                   <Button
                     variant="outline"
-                    className="w-full border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent dark:border-[#D4AF37] dark:text-[#D4AF37]"
+                    className="w-full border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent dark:border-[#C17C5D] dark:text-[#C17C5D]"
                   >
                     {t("auth.createAccount")}
                   </Button>

@@ -36,13 +36,13 @@ export default function RegisterPage() {
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-2">
-            <Calendar className="h-8 w-8 text-[#D4AF37]" />
-            <span className="text-2xl font-bold text-[#D4AF37]">LeiriAgenda</span>
+            <Calendar className="h-8 w-8 text-[#C17C5D]" />
+            <span className="text-2xl font-bold text-[#C17C5D]">LeiriAgenda</span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Crie a sua conta</h2>
           <p className="mt-2 text-sm text-gray-600">
             Ou{" "}
-            <Link href="/login" className="font-medium text-[#D4AF37] hover:text-[#B8941F]">
+            <Link href="/login" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
               entre na sua conta existente
             </Link>
           </p>
@@ -160,29 +160,29 @@ export default function RegisterPage() {
                   id="terms"
                   name="terms"
                   type="checkbox"
-                  className="h-4 w-4 text-[#D4AF37] focus:ring-[#D4AF37] border-gray-300 rounded"
+                  className="h-4 w-4 text-[#C17C5D] focus:ring-[#C17C5D] border-gray-300 rounded"
                   required
                 />
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                   Aceito os{" "}
-                  <Link href="/termos" className="text-[#D4AF37] hover:text-[#B8941F]">
+                  <Link href="/termos" className="text-[#C17C5D] hover:text-[#A66A4D]">
                     Termos e Condições
                   </Link>{" "}
                   e a{" "}
-                  <Link href="/privacidade" className="text-[#D4AF37] hover:text-[#B8941F]">
+                  <Link href="/privacidade" className="text-[#C17C5D] hover:text-[#A66A4D]">
                     Política de Privacidade
                   </Link>
                 </label>
               </div>
 
-              <Button type="submit" disabled={isLoading} className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+              <Button type="submit" disabled={isLoading} className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
                 {isLoading ? "A criar conta..." : "Criar Conta"}
               </Button>
             </form>
 
             <div className="text-center text-sm text-gray-600">
               Já tem conta?{" "}
-              <Link href="/login" className="font-medium text-[#D4AF37] hover:text-[#B8941F]">
+              <Link href="/login" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
                 Entre aqui
               </Link>
             </div>
@@ -191,7 +191,7 @@ export default function RegisterPage() {
 
         {/* Back to home */}
         <div className="text-center">
-          <Link href="/" className="text-sm text-gray-600 hover:text-[#D4AF37]">
+          <Link href="/" className="text-sm text-gray-600 hover:text-[#C17C5D]">
             ← Voltar ao início
           </Link>
         </div>

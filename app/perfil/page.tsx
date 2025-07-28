@@ -151,12 +151,12 @@ function ProfileContent() {
                   <Button
                     onClick={() => (isEditing ? handleCancel() : setIsEditing(true))}
                     variant={isEditing ? "outline" : "default"}
-                    className={isEditing ? "bg-transparent" : "bg-[#D4AF37] hover:bg-[#B8941F] text-white"}
+                    className={isEditing ? "bg-transparent" : "bg-[#C17C5D] hover:bg-[#A66A4D] text-white"}
                   >
                     {isEditing ? "Cancelar" : "Editar Perfil"}
                   </Button>
                   {isEditing && (
-                    <Button onClick={handleSave} className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+                    <Button onClick={handleSave} className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
                       Guardar
                     </Button>
                   )}
@@ -174,7 +174,7 @@ function ProfileContent() {
                     {typeof stat.icon === "string" ? (
                       stat.icon
                     ) : (
-                      <stat.icon className="h-8 w-8 mx-auto text-[#D4AF37]" />
+                      <stat.icon className="h-8 w-8 mx-auto text-[#C17C5D]" />
                     )}
                   </div>
                   <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
@@ -264,7 +264,7 @@ function ProfileContent() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Bell className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                    <Bell className="h-5 w-5 mr-2 text-[#C17C5D]" />
                     Notificações
                   </CardTitle>
                 </CardHeader>
@@ -311,7 +311,7 @@ function ProfileContent() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Shield className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                    <Shield className="h-5 w-5 mr-2 text-[#C17C5D]" />
                     Privacidade
                   </CardTitle>
                 </CardHeader>

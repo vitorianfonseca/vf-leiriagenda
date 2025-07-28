@@ -30,8 +30,8 @@ export default function RecoverPasswordPage() {
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-2">
-            <Calendar className="h-8 w-8 text-[#D4AF37]" />
-            <span className="text-2xl font-bold text-[#D4AF37]">LeiriAgenda</span>
+            <Calendar className="h-8 w-8 text-[#C17C5D]" />
+            <span className="text-2xl font-bold text-[#C17C5D]">LeiriAgenda</span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Recuperar Palavra-passe</h2>
           <p className="mt-2 text-sm text-gray-600">Introduza o seu email para receber instruções de recuperação</p>
@@ -57,7 +57,7 @@ export default function RecoverPasswordPage() {
                 <Button
                   onClick={() => setEmailSent(false)}
                   variant="outline"
-                  className="w-full border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+                  className="w-full border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
                 >
                   Tentar novamente
                 </Button>
@@ -75,7 +75,7 @@ export default function RecoverPasswordPage() {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white"
+                  className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white"
                 >
                   {isLoading ? "A enviar..." : "Enviar Instruções"}
                 </Button>
@@ -84,7 +84,7 @@ export default function RecoverPasswordPage() {
 
             <div className="text-center text-sm text-gray-600">
               Lembrou-se da palavra-passe?{" "}
-              <Link href="/login" className="font-medium text-[#D4AF37] hover:text-[#B8941F]">
+              <Link href="/login" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
                 Entre aqui
               </Link>
             </div>
@@ -93,7 +93,7 @@ export default function RecoverPasswordPage() {
 
         {/* Back to login */}
         <div className="text-center">
-          <Link href="/login" className="inline-flex items-center text-sm text-gray-600 hover:text-[#D4AF37]">
+          <Link href="/login" className="inline-flex items-center text-sm text-gray-600 hover:text-[#C17C5D]">
             <ArrowLeft className="h-4 w-4 mr-1" />
             Voltar ao login
           </Link>

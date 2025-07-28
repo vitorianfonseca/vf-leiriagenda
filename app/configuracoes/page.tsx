@@ -104,7 +104,7 @@ function SettingsContent() {
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <CardHeader>
                 <CardTitle className="flex items-center dark:text-white">
-                  <Palette className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                  <Palette className="h-5 w-5 mr-2 text-[#C17C5D]" />
                   {t("settings.appearance")}
                 </CardTitle>
               </CardHeader>
@@ -161,7 +161,7 @@ function SettingsContent() {
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <CardHeader>
                 <CardTitle className="flex items-center dark:text-white">
-                  <Bell className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                  <Bell className="h-5 w-5 mr-2 text-[#C17C5D]" />
                   {t("profile.notifications")}
                 </CardTitle>
               </CardHeader>
@@ -216,7 +216,7 @@ function SettingsContent() {
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <CardHeader>
                 <CardTitle className="flex items-center dark:text-white">
-                  <Shield className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                  <Shield className="h-5 w-5 mr-2 text-[#C17C5D]" />
                   {t("profile.privacy")}
                 </CardTitle>
               </CardHeader>
@@ -271,7 +271,7 @@ function SettingsContent() {
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <CardHeader>
                 <CardTitle className="flex items-center dark:text-white">
-                  <Settings className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                  <Settings className="h-5 w-5 mr-2 text-[#C17C5D]" />
                   Preferências
                 </CardTitle>
               </CardHeader>
@@ -332,7 +332,7 @@ function SettingsContent() {
             <Card className="dark:bg-gray-800 dark:border-gray-700">
               <CardHeader>
                 <CardTitle className="flex items-center dark:text-white">
-                  <Download className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                  <Download className="h-5 w-5 mr-2 text-[#C17C5D]" />
                   Gestão de Dados
                 </CardTitle>
               </CardHeader>
@@ -379,7 +379,7 @@ function SettingsContent() {
 
             {/* Save Button */}
             <div className="flex justify-end pt-6">
-              <Button onClick={handleSave} className="bg-[#D4AF37] hover:bg-[#B8941F] text-white px-8">
+              <Button onClick={handleSave} className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white px-8">
                 {t("settings.saveSettings")}
               </Button>
             </div>

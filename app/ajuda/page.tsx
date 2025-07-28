@@ -123,7 +123,7 @@ export default function HelpPage() {
               <Link key={link.title} href={link.href}>
                 <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4 text-center">
-                    <link.icon className="h-8 w-8 text-[#D4AF37] mx-auto mb-2" />
+                    <link.icon className="h-8 w-8 text-[#C17C5D] mx-auto mb-2" />
                     <h3 className="font-medium text-gray-900">{link.title}</h3>
                   </CardContent>
                 </Card>
@@ -140,7 +140,7 @@ export default function HelpPage() {
                 <Card key={category.title}>
                   <CardHeader>
                     <CardTitle className="flex items-center">
-                      <category.icon className="h-5 w-5 mr-2 text-[#D4AF37]" />
+                      <category.icon className="h-5 w-5 mr-2 text-[#C17C5D]" />
                       {category.title}
                     </CardTitle>
                   </CardHeader>
@@ -165,24 +165,24 @@ export default function HelpPage() {
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                 <div>
-                  <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <MessageCircle className="h-6 w-6 text-[#D4AF37]" />
+                  <div className="w-12 h-12 bg-[#C17C5D]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <MessageCircle className="h-6 w-6 text-[#C17C5D]" />
                   </div>
                   <h3 className="font-medium text-gray-900 mb-2">Chat ao Vivo</h3>
                   <p className="text-sm text-gray-600 mb-4">Fale connosco em tempo real</p>
-                  <Button className="bg-[#D4AF37] hover:bg-[#B8941F] text-white">Iniciar Chat</Button>
+                  <Button className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white">Iniciar Chat</Button>
                 </div>
 
                 <div>
-                  <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Mail className="h-6 w-6 text-[#D4AF37]" />
+                  <div className="w-12 h-12 bg-[#C17C5D]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Mail className="h-6 w-6 text-[#C17C5D]" />
                   </div>
                   <h3 className="font-medium text-gray-900 mb-2">Email</h3>
                   <p className="text-sm text-gray-600 mb-4">Resposta em 24 horas</p>
                   <Link href="/contacto">
                     <Button
                       variant="outline"
-                      className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+                      className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
                     >
                       Enviar Email
                     </Button>
@@ -190,14 +190,14 @@ export default function HelpPage() {
                 </div>
 
                 <div>
-                  <div className="w-12 h-12 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Phone className="h-6 w-6 text-[#D4AF37]" />
+                  <div className="w-12 h-12 bg-[#C17C5D]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Phone className="h-6 w-6 text-[#C17C5D]" />
                   </div>
                   <h3 className="font-medium text-gray-900 mb-2">Telefone</h3>
                   <p className="text-sm text-gray-600 mb-4">Seg-Sex: 9h-18h</p>
                   <Button
                     variant="outline"
-                    className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+                    className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
                   >
                     +351 244 000 000
                   </Button>
@@ -221,7 +221,7 @@ export default function HelpPage() {
                 <Card key={index} className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4">
                     <div className="flex items-start space-x-3">
-                      <FileText className="h-5 w-5 text-[#D4AF37] mt-1 flex-shrink-0" />
+                      <FileText className="h-5 w-5 text-[#C17C5D] mt-1 flex-shrink-0" />
                       <div>
                         <h3 className="font-medium text-gray-900 mb-1">{article}</h3>
                         <p className="text-sm text-gray-600">Guia passo a passo</p>

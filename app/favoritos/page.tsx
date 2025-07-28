@@ -110,7 +110,7 @@ function FavoritesContent() {
             <p className="text-gray-600 mb-4">Comece a explorar eventos e adicione aos seus favoritos!</p>
             <a
               href="/eventos"
-              className="inline-flex items-center px-4 py-2 bg-[#D4AF37] text-white rounded-md hover:bg-[#B8941F] transition-colors"
+              className="inline-flex items-center px-4 py-2 bg-[#C17C5D] text-white rounded-md hover:bg-[#A66A4D] transition-colors"
             >
               Explorar Eventos
             </a>

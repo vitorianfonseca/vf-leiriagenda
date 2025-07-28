@@ -45,13 +45,13 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-2">
-            <Calendar className="h-8 w-8 text-[#D4AF37]" />
-            <span className="text-2xl font-bold text-[#D4AF37]">LeiriAgenda</span>
+            <Calendar className="h-8 w-8 text-[#C17C5D]" />
+            <span className="text-2xl font-bold text-[#C17C5D]">LeiriAgenda</span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Entre na sua conta</h2>
           <p className="mt-2 text-sm text-gray-600">
             Ou{" "}
-            <Link href="/registo" className="font-medium text-[#D4AF37] hover:text-[#B8941F]">
+            <Link href="/registo" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
               crie uma conta nova
             </Link>
           </p>
@@ -145,7 +145,7 @@ export default function LoginPage() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-[#D4AF37] focus:ring-[#D4AF37] border-gray-300 rounded"
+                    className="h-4 w-4 text-[#C17C5D] focus:ring-[#C17C5D] border-gray-300 rounded"
                   />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                     Lembrar-me
@@ -153,20 +153,20 @@ export default function LoginPage() {
                 </div>
 
                 <div className="text-sm">
-                  <Link href="/recuperar-password" className="font-medium text-[#D4AF37] hover:text-[#B8941F]">
+                  <Link href="/recuperar-password" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
                     Esqueceu a palavra-passe?
                   </Link>
                 </div>
               </div>
 
-              <Button type="submit" disabled={isLoading} className="w-full bg-[#D4AF37] hover:bg-[#B8941F] text-white">
+              <Button type="submit" disabled={isLoading} className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
                 {isLoading ? "A entrar..." : "Entrar"}
               </Button>
             </form>
 
             <div className="text-center text-sm text-gray-600">
               Não tem conta?{" "}
-              <Link href="/registo" className="font-medium text-[#D4AF37] hover:text-[#B8941F]">
+              <Link href="/registo" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
                 Registe-se aqui
               </Link>
             </div>
@@ -175,7 +175,7 @@ export default function LoginPage() {
 
         {/* Back to home */}
         <div className="text-center">
-          <Link href="/" className="text-sm text-gray-600 hover:text-[#D4AF37]">
+          <Link href="/" className="text-sm text-gray-600 hover:text-[#C17C5D]">
             ← Voltar ao início
           </Link>
         </div>

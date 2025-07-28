@@ -128,14 +128,14 @@ export function FileUploadZone({
             border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors
             ${
               isDragging
-                ? "border-[#D4AF37] bg-[#D4AF37]/10"
-                : "border-gray-300 hover:border-[#D4AF37] hover:bg-gray-50"
+                ? "border-[#C17C5D] bg-[#C17C5D]/10"
+                : "border-gray-300 hover:border-[#C17C5D] hover:bg-gray-50"
             }
           `}
         >
           {isUploading ? (
             <div className="flex flex-col items-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4AF37] mb-4"></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C17C5D] mb-4"></div>
               <p className="text-gray-600">A carregar imagem...</p>
             </div>
           ) : (

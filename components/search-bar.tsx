@@ -28,11 +28,11 @@ export function SearchBar({ onSearch, placeholder = "Procurar...", className = "
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="pl-12 pr-4 py-3 text-lg border-2 border-white/30 focus:border-[#D4AF37] rounded-full bg-white/90 backdrop-blur-sm text-gray-900 placeholder:text-gray-600"
+        className="pl-12 pr-4 py-3 text-lg border-2 border-white/30 focus:border-[#C17C5D] rounded-full bg-white/90 backdrop-blur-sm text-gray-900 placeholder:text-gray-600"
       />
       <Button
         type="submit"
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#D4AF37] hover:bg-[#B8941F] text-white rounded-full px-6"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-[#C17C5D] hover:bg-[#A66A4D] text-white rounded-full px-6"
       >
         Procurar
       </Button>

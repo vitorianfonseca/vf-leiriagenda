@@ -117,15 +117,15 @@ export default function HomePage() {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-[#D4AF37]/10 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-[#D4AF37]/5 rounded-full blur-2xl"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-[#C17C5D]/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-[#C17C5D]/5 rounded-full blur-2xl"></div>
         <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-orange-200/20 rounded-full blur-lg"></div>
 
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 w-full flex items-center justify-center min-h-screen">
           <div className="max-w-4xl mx-auto text-center -mt-24">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 drop-shadow-lg">
-              {t("hero.title")} <span className="text-[#D4AF37]">Leiria</span>
+              {t("hero.title")} <span className="text-[#C17C5D]">Leiria</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-800 dark:text-gray-200 mb-12 max-w-2xl mx-auto drop-shadow-md">
               {t("hero.subtitle")}
@@ -137,9 +137,9 @@ export default function HomePage() {
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5 z-10" />
                 <Input
                   placeholder={t("hero.searchPlaceholder")}
-                  className="w-full pl-12 pr-32 py-4 text-lg border-2 border-[#D4AF37]/30 focus:border-[#D4AF37] rounded-full bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white placeholder:text-gray-600 dark:placeholder:text-gray-400 h-14 shadow-xl"
+                  className="w-full pl-12 pr-32 py-4 text-lg border-2 border-[#C17C5D]/30 focus:border-[#C17C5D] rounded-full bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white placeholder:text-gray-600 dark:placeholder:text-gray-400 h-14 shadow-xl"
                 />
-                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-[#D4AF37] hover:bg-[#B8941F] text-white rounded-full px-6 py-2 h-12 shadow-lg">
+                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-[#C17C5D] hover:bg-[#A66A4D] text-white rounded-full px-6 py-2 h-12 shadow-lg">
                   {t("hero.searchButton")}
                 </Button>
               </div>
@@ -159,7 +159,7 @@ export default function HomePage() {
             <Link href="/eventos">
               <Button
                 variant="outline"
-                className="border-[#D4AF37] text-[#D4AF37] hover:bg-[#D4AF37] hover:text-white bg-transparent"
+                className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
               >
                 {t("events.viewAll")}
               </Button>
@@ -187,7 +187,7 @@ export default function HomePage() {
               <Link key={category.key} href={`/eventos?categoria=${category.key}`}>
                 <div className="bg-white dark:bg-gray-700 p-6 rounded-lg text-center hover:shadow-md transition-shadow cursor-pointer group">
                   <div className="text-3xl mb-2">{category.icon}</div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-[#D4AF37] transition-colors">
+                  <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-[#C17C5D] transition-colors">
                     {category.name}
                   </h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -201,12 +201,12 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-[#D4AF37]">
+      <section className="py-16 bg-[#C17C5D]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">{t("cta.title")}</h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">{t("cta.subtitle")}</p>
           <Link href="/submeter">
-            <Button size="lg" className="bg-white text-[#D4AF37] hover:bg-gray-100 font-semibold px-8 py-3">
+            <Button size="lg" className="bg-white text-[#C17C5D] hover:bg-gray-100 font-semibold px-8 py-3">
               {t("cta.submitEvent")}
             </Button>
           </Link>
