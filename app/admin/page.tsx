@@ -3,61 +3,49 @@
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Users, Calendar, Settings, BarChart3, Shield, Mail } from "lucide-react"
+import { Users, Calendar, Settings, BarChart3, Shield, Server } from "lucide-react"
 import { useI18n } from "@/hooks/use-i18n"
 import { AdminGuard } from "@/components/admin-guard"
 
 export default function AdminDashboard() {
   const { t } = useI18n()
 
-  const adminModules = [
+    const adminModules = [
     {
       title: "Gestão de Utilizadores",
-      description: "Gerir contas de utilizadores, permissões e acessos",
-      href: "/admin/users",
+      description: "Gerir contas, permissões e estatísticas de utilizadores",
       icon: Users,
-      color: "text-palette-deep",
-      bgColor: "bg-palette-warm-light/10"
+      href: "/admin/users"
     },
     {
-      title: "Gestão de Eventos",
-      description: "Aprovar, editar e gerir eventos submetidos",
-      href: "/admin/events",
+      title: "Gestão de Eventos", 
+      description: "Aprovar, editar e gerir todos os eventos da plataforma",
       icon: Calendar,
-      color: "text-palette-deep",
-      bgColor: "bg-palette-warm-light/10"
+      href: "/admin/events"
     },
     {
-      title: "Relatórios e Análises",
-      description: "Ver estatísticas, métricas e relatórios detalhados",
-      href: "/admin/analytics",
-      icon: BarChart3,
-      color: "text-palette-deep",
-      bgColor: "bg-palette-warm-light/10"
-    },
-    {
-      title: "Configurações do Sistema",
-      description: "Configurar preferências e definições da plataforma",
-      href: "/admin/settings",
-      icon: Settings,
-      color: "text-palette-deep",
-      bgColor: "bg-palette-warm-light/10"
-    },
-    {
-      title: "Segurança",
-      description: "Monitorizar logs, acessos e configurações de segurança",
-      href: "/admin/security",
+      title: "Moderação",
+      description: "Rever conteúdo reportado e tomar ações de moderação",
       icon: Shield,
-      color: "text-palette-deep",
-      bgColor: "bg-palette-warm-light/10"
+      href: "/admin/moderation"
     },
     {
-      title: "Comunicação",
-      description: "Gerir newsletters, notificações e comunicações",
-      href: "/admin/communication",
-      icon: Mail,
-      color: "text-palette-deep",
-      bgColor: "bg-palette-warm-light/10"
+      title: "Análises",
+      description: "Estatísticas detalhadas e relatórios da plataforma", 
+      icon: BarChart3,
+      href: "/admin/analytics"
+    },
+    {
+      title: "Configurações",
+      description: "Definições globais da aplicação e personalização",
+      icon: Settings,
+      href: "/admin/settings"
+    },
+    {
+      title: "Sistema",
+      description: "Logs, backup e manutenção do sistema",
+      icon: Server,
+      href: "/admin/system"
     }
   ]
 
@@ -65,7 +53,7 @@ export default function AdminDashboard() {
     <AdminGuard>
       <div className="min-h-screen bg-white">
         {/* Header */}
-        <div className="bg-gradient-to-r from-palette-deep to-palette-warm-dark border-b">
+        <div className="bg-gradient-to-r from-primary to-secondary border-b">
           <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-white mb-2">Painel de Administração</h1>
             <p className="text-white/90">Gerir e monitorizar a plataforma LeiriAgenda</p>
@@ -78,15 +66,15 @@ export default function AdminDashboard() {
               const IconComponent = module.icon
               return (
                 <Link key={module.href} href={module.href}>
-                  <Card className="h-full border-palette-warm-medium/20 hover:shadow-lg hover:border-palette-deep/30 transition-all cursor-pointer group bg-white">
+                  <Card className="h-full border-primary/20 hover:shadow-lg hover:border-primary/30 transition-all cursor-pointer group bg-white">
                     <CardHeader className="p-6">
-                      <div className={`w-12 h-12 rounded-lg ${module.bgColor} flex items-center justify-center mb-4 group-hover:scale-105 transition-transform border border-palette-warm-medium/10`}>
-                        <IconComponent className={`h-6 w-6 ${module.color}`} />
+                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform border border-primary/10">
+                        <IconComponent className="h-6 w-6 text-primary" />
                       </div>
-                      <CardTitle className="text-lg text-palette-deep group-hover:text-palette-accent transition-colors mb-2">
+                      <CardTitle className="text-lg text-primary group-hover:text-accent transition-colors mb-2">
                         {module.title}
                       </CardTitle>
-                      <CardDescription className="text-palette-warm-dark/70 text-sm">
+                      <CardDescription className="text-primary/70 text-sm">
                         {module.description}
                       </CardDescription>
                     </CardHeader>

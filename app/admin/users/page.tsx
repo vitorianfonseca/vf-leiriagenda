@@ -118,13 +118,11 @@ export default function UsersPage() {
   const getRoleBadge = (role: string) => {
     switch (role) {
       case 'Admin':
-        return <Badge className="bg-palette-deep/10 text-palette-deep border-palette-deep/20">Admin</Badge>
-      case 'Moderator':
-        return <Badge className="bg-palette-warm-dark/10 text-palette-warm-dark border-palette-warm-dark/20">Moderador</Badge>
-      case 'User':
-        return <Badge className="bg-palette-warm-medium/10 text-palette-warm-medium border-palette-warm-medium/20">Utilizador</Badge>
+        return <Badge className="bg-primary/10 text-primary border-primary/20">Admin</Badge>
+      case 'moderator':
+        return <Badge className="bg-secondary/10 text-secondary border-secondary/20">Moderador</Badge>
       default:
-        return <Badge className="bg-gray-100 text-gray-800 border-gray-200">Desconhecido</Badge>
+        return <Badge className="bg-muted text-muted-foreground border-muted">Utilizador</Badge>
     }
   }
 
@@ -133,11 +131,11 @@ export default function UsersPage() {
       {/* Header */}
       <div className="border-b bg-white">
         <div className="container mx-auto px-4 py-8">
-          <h1 className="text-3xl font-bold text-palette-warm-dark mb-2">
+                    <h1 className="text-3xl font-bold text-primary mb-2">
             Gestão de Utilizadores
           </h1>
-          <p className="text-palette-warm-dark/70">
-            Gerir contas de utilizadores, permissões e atividade da plataforma
+          <p className="text-primary/70">
+            Gerir contas de utilizadores, estatísticas e permissões
           </p>
         </div>
       </div>
@@ -160,17 +158,44 @@ export default function UsersPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-palette-warm-medium/20 bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-palette-warm-dark">
-                Utilizadores Ativos
+                    <Card className="border-primary/20 bg-white shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-primary">
+                Total de Utilizadores
               </CardTitle>
-              <UserPlus className="h-4 w-4 text-palette-deep" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-palette-deep">{activeUsers}</div>
-              <p className="text-xs text-palette-warm-dark/60">
-                Com sessões ativas
+              <div className="text-2xl font-bold text-primary">{users.length}</div>
+              <p className="text-xs text-primary/60">
+                +2 desde ontem
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary/20 bg-white shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-primary">
+                Utilizadores Ativos
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-primary">{activeUsers}</div>
+              <p className="text-xs text-primary/60">
+                Últimos 30 dias
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="border-primary/20 bg-white shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-primary">
+                Novos Este Mês
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-primary">{newUsersThisMonth}</div>
+              <p className="text-xs text-primary/60">
+                +12% vs mês anterior
               </p>
             </CardContent>
           </Card>
@@ -194,22 +219,22 @@ export default function UsersPage() {
         {/* Search and Actions */}
         <div className="flex flex-col sm:flex-row gap-4 mb-6">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-palette-warm-dark/40 h-4 w-4" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary/40 h-4 w-4" />
             <Input
               placeholder="Pesquisar utilizadores..."
-              className="pl-10 border-palette-warm-medium/20 focus:border-palette-deep"
+              className="pl-10 border-primary/20 focus:border-primary"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button className="bg-palette-deep hover:bg-palette-warm-dark text-white">
+          <Button className="bg-primary hover:bg-primary/90 text-white">
             <UserPlus className="mr-2 h-4 w-4" />
             Adicionar Utilizador
           </Button>
         </div>
 
         {/* Users Table */}
-        <Card className="border-palette-warm-medium/20">
+        <Card className="border-primary/20">
           <CardHeader>
             <CardTitle className="text-palette-warm-dark">
               Lista de Utilizadores ({filteredUsers.length})

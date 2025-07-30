@@ -30,8 +30,8 @@ export function Header() {
 
   const getLinkClasses = (path: string) => {
     return isActivePage(path)
-      ? "text-palette-deep font-semibold border-b-2 border-palette-deep pb-1 transition-all"
-      : "text-gray-700 dark:text-gray-300 hover:text-palette-deep transition-colors"
+      ? "text-primary font-semibold border-b-2 border-primary pb-1 transition-all"
+      : "text-gray-700 dark:text-gray-300 hover:text-primary transition-colors"
   }
 
   return (

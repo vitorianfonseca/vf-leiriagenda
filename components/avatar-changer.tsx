@@ -36,14 +36,14 @@ export function AvatarChanger() {
   }
 
   return (
-    <Card className="border-palette-warm-medium/20">
+    <Card className="border-primary/20">
       <CardHeader>
-        <CardTitle className="text-palette-warm-dark">Avatar do Perfil</CardTitle>
+        <CardTitle className="text-primary">Avatar do Perfil</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col items-center space-y-4">
         <Avatar className="h-24 w-24">
           <AvatarImage src={user.avatar} alt={user.name} />
-          <AvatarFallback className="bg-palette-deep text-white text-lg">
+          <AvatarFallback className="bg-primary text-white text-lg">
             {user.name.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
@@ -51,13 +51,13 @@ export function AvatarChanger() {
         <Button 
           onClick={handleChangeAvatar}
           disabled={isChanging}
-          className="bg-palette-deep hover:bg-palette-warm-dark text-white"
+          className="bg-primary hover:bg-primary/90 text-white"
         >
           <RefreshCw className={`mr-2 h-4 w-4 ${isChanging ? 'animate-spin' : ''}`} />
           {isChanging ? 'A alterar...' : 'Gerar Novo Avatar'}
         </Button>
         
-        <p className="text-sm text-palette-warm-dark/60 text-center">
+        <p className="text-sm text-primary/60 text-center">
           Clique para gerar um novo avatar aleatório
         </p>
       </CardContent>

@@ -20,46 +20,53 @@ const config: Config = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        card: "hsl(var(--card))",
+        "card-foreground": "hsl(var(--card-foreground))",
+        popover: "hsl(var(--popover))",
+        "popover-foreground": "hsl(var(--popover-foreground))",
         primary: {
-          DEFAULT: "#582534",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: "#77AF87", // Verde principal
+          foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+          DEFAULT: "#5D8E6A", // Verde mais escuro para gradientes
+          foreground: "#FFFFFF",
         },
-        // Paleta customizada - Nova paleta burgundy e bege
-        palette: {
-          "warm-light": "#E8D8C4",
-          "warm-medium": "#C7B7A3", 
-          "warm-dark": "#6D2932",
-          "accent": "#582534",
-          "deep": "#582534",
+        muted: {
+          DEFAULT: "#F8F9FA", // Cinza muito claro
+          foreground: "#77AF87",
+        },
+        accent: {
+          DEFAULT: "#D4AF37", // Dourado para detalhes
+          foreground: "#FFFFFF",
+        },
+        gold: {
+          DEFAULT: "#D4AF37", // Dourado principal
+          light: "#F4E4BC", // Dourado claro
+          bright: "#FFD700", // Dourado brilhante para detalhes
+          dark: "#B8941F", // Dourado escuro
+        },
+        green: {
+          primary: "#77AF87", // Verde principal
+          dark: "#5D8E6A", // Verde escuro
+          light: "#A8C8B0", // Verde claro
+          muted: "#E8F1EA", // Verde muito claro para fundos
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        chart: {
+          "1": "hsl(var(--chart-1))",
+          "2": "hsl(var(--chart-2))",
+          "3": "hsl(var(--chart-3))",
+          "4": "hsl(var(--chart-4))",
+          "5": "hsl(var(--chart-5))",
         },
       },
       borderRadius: {
