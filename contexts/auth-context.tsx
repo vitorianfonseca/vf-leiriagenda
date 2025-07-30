@@ -106,12 +106,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const register = async (name: string, email: string, password: string) => {
-    // Simulate registration API call
+    // Criar utilizador com avatar aleatório
     const newUser = {
       id: Date.now().toString(),
       name,
       email,
-      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${name}`,
+      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name.replace(/\s+/g, '').toLowerCase()}&backgroundColor=transparent`,
       favorites: [],
       phone: "",
       location: "",

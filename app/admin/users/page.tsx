@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
-import { UserPlus, Users, Calendar, Search, MoreHorizontal, Edit, Trash2 } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { UserPlus, Users, Calendar, Search, MoreHorizontal, Edit, Trash2, RefreshCw } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,57 +20,77 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-// Mock data for users
-const users = [
-  {
-    id: "1",
-    name: "Ana Silva",
-    email: "ana.silva@email.com",
-    role: "Admin",
-    status: "active",
-    joinDate: "2024-01-15",
-    lastActive: "2024-01-20"
-  },
-  {
-    id: "2",
-    name: "João Santos",
-    email: "joao.santos@email.com",
-    role: "User",
-    status: "active",
-    joinDate: "2024-01-18",
-    lastActive: "2024-01-19"
-  },
-  {
-    id: "3",
-    name: "Maria Costa",
-    email: "maria.costa@email.com",
-    role: "User",
-    status: "inactive",
-    joinDate: "2024-01-10",
-    lastActive: "2024-01-15"
-  },
-  {
-    id: "4",
-    name: "Pedro Oliveira",
-    email: "pedro.oliveira@email.com",
-    role: "Moderator",
-    status: "active",
-    joinDate: "2024-01-12",
-    lastActive: "2024-01-20"
-  },
-  {
-    id: "5",
-    name: "Sofia Mendes",
-    email: "sofia.mendes@email.com",
-    role: "User",
-    status: "active",
-    joinDate: "2024-01-20",
-    lastActive: "2024-01-20"
-  }
-]
+import { useState, useEffect } from "react"
+import DataService, { User } from "@/lib/data-service"
+import { useToast } from "@/hooks/use-toast"
 
 export default function UsersPage() {
+  const [users, setUsers] = useState<User[]>([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const { toast } = useToast()
+
+  // Carregar utilizadores ao inicializar
+  useEffect(() => {
+    loadUsers()
+  }, [])
+
+  const loadUsers = () => {
+    const loadedUsers = DataService.getUsers()
+    setUsers(loadedUsers)
+  }
+
+  const handleDeleteUser = async (userId: string) => {
+    if (confirm("Tem a certeza que deseja eliminar este utilizador?")) {
+      const success = DataService.deleteUser(userId)
+      if (success) {
+        loadUsers() // Recarregar lista
+        toast({
+          title: "Utilizador eliminado",
+          description: "O utilizador foi eliminado com sucesso.",
+        })
+      } else {
+        toast({
+          title: "Erro",
+          description: "Não foi possível eliminar o utilizador.",
+          variant: "destructive"
+        })
+      }
+    }
+  }
+
+  const handleChangeAvatar = (userId: string) => {
+    const newAvatar = DataService.generateNewRandomAvatar()
+    const updated = DataService.updateUser(userId, { avatar: newAvatar })
+    if (updated) {
+      loadUsers()
+      toast({
+        title: "Avatar atualizado",
+        description: "O avatar foi alterado com sucesso.",
+      })
+    }
+  }
+
+  const handleToggleStatus = (userId: string) => {
+    const user = users.find(u => u.id === userId)
+    if (user) {
+      const newStatus = user.status === 'active' ? 'inactive' : 'active'
+      const updated = DataService.updateUser(userId, { status: newStatus })
+      if (updated) {
+        loadUsers()
+        toast({
+          title: "Status atualizado",
+          description: `Utilizador está agora ${newStatus === 'active' ? 'ativo' : 'inativo'}.`,
+        })
+      }
+    }
+  }
+
+  // Filtrar utilizadores por termo de pesquisa
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  )
+
   // Calculate statistics
   const totalUsers = users.length
   const activeUsers = users.filter(u => u.status === "active").length
@@ -177,6 +198,8 @@ export default function UsersPage() {
             <Input
               placeholder="Pesquisar utilizadores..."
               className="pl-10 border-palette-warm-medium/20 focus:border-palette-deep"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
           <Button className="bg-palette-deep hover:bg-palette-warm-dark text-white">
@@ -188,12 +211,15 @@ export default function UsersPage() {
         {/* Users Table */}
         <Card className="border-palette-warm-medium/20">
           <CardHeader>
-            <CardTitle className="text-palette-warm-dark">Lista de Utilizadores</CardTitle>
+            <CardTitle className="text-palette-warm-dark">
+              Lista de Utilizadores ({filteredUsers.length})
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow className="border-palette-warm-medium/20">
+                  <TableHead className="text-palette-warm-dark">Avatar</TableHead>
                   <TableHead className="text-palette-warm-dark">Nome</TableHead>
                   <TableHead className="text-palette-warm-dark">Email</TableHead>
                   <TableHead className="text-palette-warm-dark">Função</TableHead>
@@ -204,8 +230,16 @@ export default function UsersPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                   <TableRow key={user.id} className="border-palette-warm-medium/20 hover:bg-palette-warm-light/5">
+                    <TableCell>
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src={user.avatar} alt={user.name} />
+                        <AvatarFallback className="bg-palette-deep text-white">
+                          {user.name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </TableCell>
                     <TableCell className="font-medium text-palette-warm-dark">
                       {user.name}
                     </TableCell>
@@ -216,7 +250,9 @@ export default function UsersPage() {
                       {getRoleBadge(user.role)}
                     </TableCell>
                     <TableCell>
-                      {getStatusBadge(user.status)}
+                      <button onClick={() => handleToggleStatus(user.id)}>
+                        {getStatusBadge(user.status)}
+                      </button>
                     </TableCell>
                     <TableCell className="text-palette-warm-dark/80">
                       {formatDate(user.joinDate)}
@@ -232,11 +268,24 @@ export default function UsersPage() {
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="border-palette-warm-medium/20">
-                          <DropdownMenuItem className="text-palette-warm-dark hover:bg-palette-warm-light/10">
-                            <Edit className="mr-2 h-4 w-4" />
-                            Editar
+                          <DropdownMenuItem 
+                            className="text-palette-warm-dark hover:bg-palette-warm-light/10"
+                            onClick={() => handleChangeAvatar(user.id)}
+                          >
+                            <RefreshCw className="mr-2 h-4 w-4" />
+                            Mudar Avatar
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="text-red-600 hover:bg-red-50">
+                          <DropdownMenuItem 
+                            className="text-palette-warm-dark hover:bg-palette-warm-light/10"
+                            onClick={() => handleToggleStatus(user.id)}
+                          >
+                            <Edit className="mr-2 h-4 w-4" />
+                            {user.status === 'active' ? 'Desativar' : 'Ativar'}
+                          </DropdownMenuItem>
+                          <DropdownMenuItem 
+                            className="text-red-600 hover:bg-red-50"
+                            onClick={() => handleDeleteUser(user.id)}
+                          >
                             <Trash2 className="mr-2 h-4 w-4" />
                             Eliminar
                           </DropdownMenuItem>

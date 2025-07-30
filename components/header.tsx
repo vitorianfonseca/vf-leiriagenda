@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Calendar, Heart, User, LogOut, Settings, HelpCircle } from "lucide-react"
+import { Heart, User, LogOut, Settings, HelpCircle } from "lucide-react"
 import { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import { useI18n } from "@/hooks/use-i18n"
@@ -112,7 +112,6 @@ export function Header() {
                     </Link>
                     <Link href="/meus-eventos">
                       <DropdownMenuItem>
-                        <Calendar className="mr-2 h-4 w-4" />
                         <span>{t("nav.myEvents")}</span>
                       </DropdownMenuItem>
                     </Link>

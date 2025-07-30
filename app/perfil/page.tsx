@@ -13,6 +13,7 @@ import { useState, useEffect } from "react"
 import { MapPin, Calendar, Bell, Shield, Trash2 } from "lucide-react"
 import { useToast } from "@/contexts/toast-context"
 import { ImageUpload } from "@/components/image-upload"
+import { AvatarChanger } from "@/components/avatar-changer"
 
 function ProfileContent() {
   const { user, updateProfile, updateAvatar } = useAuth()
@@ -185,8 +186,12 @@ function ProfileContent() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Personal Information */}
-            <Card>
+            {/* Avatar Section */}
+            <div className="space-y-6">
+              <AvatarChanger />
+              
+              {/* Personal Information */}
+              <Card>
               <CardHeader>
                 <CardTitle>Informações Pessoais</CardTitle>
               </CardHeader>
@@ -257,6 +262,7 @@ function ProfileContent() {
                 </div>
               </CardContent>
             </Card>
+            </div>
 
             {/* Settings */}
             <div className="space-y-6">
