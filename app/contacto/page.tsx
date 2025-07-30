@@ -61,7 +61,7 @@ export default function ContactPage() {
                     <Textarea id="message" placeholder="Escreva a sua mensagem aqui..." rows={5} required />
                   </div>
 
-                  <Button type="submit" className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
+                  <Button type="submit" className="w-full bg-primary hover:bg-primary/90 text-white">
                     Enviar Mensagem
                   </Button>
                 </form>
@@ -76,7 +76,7 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <Mail className="h-6 w-6 text-[#C17C5D] mt-1" />
+                    <Mail className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold text-gray-900">Email</h3>
                       <p className="text-gray-600">contacto@leiria-agenda.pt</p>
@@ -85,7 +85,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <Phone className="h-6 w-6 text-[#C17C5D] mt-1" />
+                    <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold text-gray-900">Telefone</h3>
                       <p className="text-gray-600">+351 244 000 000</p>
@@ -93,7 +93,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <MapPin className="h-6 w-6 text-[#C17C5D] mt-1" />
+                    <MapPin className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold text-gray-900">Morada</h3>
                       <p className="text-gray-600">
@@ -107,7 +107,7 @@ export default function ContactPage() {
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <Clock className="h-6 w-6 text-[#C17C5D] mt-1" />
+                    <Clock className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold text-gray-900">Horário de Atendimento</h3>
                       <p className="text-gray-600">

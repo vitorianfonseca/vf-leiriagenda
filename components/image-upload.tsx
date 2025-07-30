@@ -105,7 +105,7 @@ export function ImageUpload({
     <div className={`relative ${className}`}>
       <Avatar className={sizeClasses[size]}>
         <AvatarImage src={previewUrl || currentImage || "/placeholder.svg"} alt="Profile" />
-        <AvatarFallback className="bg-[#C17C5D] text-white text-2xl">{fallbackText}</AvatarFallback>
+        <AvatarFallback className="bg-primary text-white text-2xl">{fallbackText}</AvatarFallback>
       </Avatar>
 
       {/* Upload Button - só aparece se não estiver desabilitado */}
@@ -115,7 +115,7 @@ export function ImageUpload({
           size="sm"
           onClick={handleFileSelect}
           disabled={isUploading}
-          className={`absolute -bottom-2 -right-2 rounded-full ${buttonSizeClasses[size]} p-0 bg-[#C17C5D] hover:bg-[#A66A4D]`}
+          className={`absolute -bottom-2 -right-2 rounded-full ${buttonSizeClasses[size]} p-0 bg-primary hover:bg-primary/90`}
         >
           {isUploading ? (
             <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-white"></div>

@@ -26,12 +26,20 @@ const config: Config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#C17C5D",
+          DEFAULT: "#582534",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        // Paleta customizada - Nova paleta burgundy e bege
+        palette: {
+          "warm-light": "#E8D8C4",
+          "warm-medium": "#C7B7A3", 
+          "warm-dark": "#6D2932",
+          "accent": "#582534",
+          "deep": "#582534",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

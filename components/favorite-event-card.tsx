@@ -58,7 +58,7 @@ export function FavoriteEventCard({
         >
           <Heart className="h-4 w-4 text-red-500 fill-red-500" />
         </button>
-        <Badge className={`absolute top-3 left-3 ${isFree ? "bg-green-500" : "bg-[#C17C5D]"} text-white`}>
+        <Badge className={`absolute top-3 left-3 ${isFree ? "bg-palette-rose-warm" : "bg-primary"} text-white`}>
           {isFree ? "Gratuito" : price}
         </Badge>
       </div>
@@ -70,25 +70,25 @@ export function FavoriteEventCard({
           </Badge>
         </div>
 
-        <h3 className="font-semibold text-lg mb-3 line-clamp-2 group-hover:text-[#C17C5D] transition-colors">
+        <h3 className="font-semibold text-lg mb-3 line-clamp-2 group-hover:text-primary transition-colors">
           {title}
         </h3>
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-gray-600">
-            <Calendar className="h-4 w-4 mr-2 text-[#C17C5D]" />
+            <Calendar className="h-4 w-4 mr-2 text-primary" />
             <span>
               {date} às {time}
             </span>
           </div>
           <div className="flex items-center text-sm text-gray-600">
-            <MapPin className="h-4 w-4 mr-2 text-[#C17C5D]" />
+            <MapPin className="h-4 w-4 mr-2 text-primary" />
             <span className="line-clamp-1">{location}</span>
           </div>
         </div>
 
         <Link href={`/evento/${id}`}>
-          <Button className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">Ver mais</Button>
+          <Button className="w-full bg-primary hover:bg-primary/90 text-white">Ver mais</Button>
         </Link>
       </CardContent>
     </Card>

@@ -32,7 +32,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
       {/* Back Button */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-4">
-          <Link href="/" className="inline-flex items-center text-gray-600 hover:text-[#C17C5D] transition-colors">
+          <Link href="/" className="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Voltar aos eventos
           </Link>
@@ -53,7 +53,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                 className="w-full h-64 md:h-96 object-cover rounded-lg"
               />
               <div className="absolute top-4 left-4">
-                <Badge className={`${eventData.isFree ? "bg-green-500" : "bg-[#C17C5D]"} text-white text-lg px-3 py-1`}>
+                <Badge className={`${eventData.isFree ? "bg-palette-rose-warm" : "bg-primary"} text-white text-lg px-3 py-1`}>
                   {eventData.isFree ? "Gratuito" : eventData.price}
                 </Badge>
               </div>
@@ -70,13 +70,13 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center text-gray-600">
-                  <Calendar className="h-5 w-5 mr-3 text-[#C17C5D]" />
+                  <Calendar className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">{eventData.date}</div>
                   </div>
                 </div>
                 <div className="flex items-center text-gray-600">
-                  <Clock className="h-5 w-5 mr-3 text-[#C17C5D]" />
+                  <Clock className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">
                       {eventData.time} - {eventData.endTime}
@@ -84,14 +84,14 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                   </div>
                 </div>
                 <div className="flex items-center text-gray-600">
-                  <MapPin className="h-5 w-5 mr-3 text-[#C17C5D]" />
+                  <MapPin className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">{eventData.location}</div>
                     <div className="text-sm">{eventData.address}</div>
                   </div>
                 </div>
                 <div className="flex items-center text-gray-600">
-                  <Users className="h-5 w-5 mr-3 text-[#C17C5D]" />
+                  <Users className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">{eventData.attendees} participantes</div>
                     <div className="text-sm">de {eventData.capacity} lugares</div>
@@ -113,7 +113,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                 <h3 className="text-lg font-semibold mb-3">Tags</h3>
                 <div className="flex flex-wrap gap-2">
                   {eventData.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="border-[#C17C5D] text-[#C17C5D]">
+                    <Badge key={tag} variant="outline" className="border-primary text-primary">
                       {tag}
                     </Badge>
                   ))}
@@ -127,28 +127,28 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
             <Card className="sticky top-24">
               <CardContent className="p-6">
                 <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-[#C17C5D] mb-2">
+                  <div className="text-3xl font-bold text-primary mb-2">
                     {eventData.isFree ? "Gratuito" : eventData.price}
                   </div>
                   <p className="text-gray-600">por pessoa</p>
                 </div>
 
                 <div className="space-y-3 mb-6">
-                  <Button className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white text-lg py-3">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-white text-lg py-3">
                     {eventData.isFree ? "Reservar Lugar" : "Comprar Bilhete"}
                   </Button>
 
                   <div className="grid grid-cols-2 gap-2">
                     <Button
                       variant="outline"
-                      className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
+                      className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
                     >
                       <Heart className="h-4 w-4 mr-2" />
                       Favorito
                     </Button>
                     <Button
                       variant="outline"
-                      className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
+                      className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
                     >
                       <Share2 className="h-4 w-4 mr-2" />
                       Partilhar
@@ -188,7 +188,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2">
                       <div
-                        className="bg-[#C17C5D] h-2 rounded-full"
+                        className="bg-primary h-2 rounded-full"
                         style={{ width: `${(eventData.attendees / eventData.capacity) * 100}%` }}
                       ></div>
                     </div>

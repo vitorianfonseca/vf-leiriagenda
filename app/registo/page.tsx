@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,24 +11,48 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Calendar, Mail, Lock, Eye, EyeOff, User } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@/contexts/auth-context"
 
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const { register, loginWithGoogle } = useAuth()
+  const router = useRouter()
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (password !== confirmPassword) {
+      alert("As palavras-passe não coincidem!")
+      return
+    }
+    
     setIsLoading(true)
-    // Simulate registration process
-    setTimeout(() => {
+    try {
+      await register(name, email, password)
+      router.push("/")
+    } catch (error) {
+      alert("Erro ao criar conta. Tente novamente.")
+    } finally {
       setIsLoading(false)
-      alert("Conta criada com sucesso!")
-    }, 2000)
+    }
   }
 
-  const handleGoogleRegister = () => {
-    alert("Registo com Google em desenvolvimento!")
+  const handleGoogleRegister = async () => {
+    setIsLoading(true)
+    try {
+      await loginWithGoogle()
+      router.push("/")
+    } catch (error) {
+      alert("Erro ao registar com Google. Tente novamente.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -36,13 +61,13 @@ export default function RegisterPage() {
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-2">
-            <Calendar className="h-8 w-8 text-[#C17C5D]" />
-            <span className="text-2xl font-bold text-[#C17C5D]">LeiriAgenda</span>
+            <Calendar className="h-8 w-8 text-primary" />
+            <span className="text-2xl font-bold text-primary">LeiriAgenda</span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Crie a sua conta</h2>
           <p className="mt-2 text-sm text-gray-600">
             Ou{" "}
-            <Link href="/login" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
+            <Link href="/login" className="font-medium text-primary hover:text-[#C3A995]">
               entre na sua conta existente
             </Link>
           </p>
@@ -91,17 +116,19 @@ export default function RegisterPage() {
 
             {/* Registration Form */}
             <form onSubmit={handleRegister} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="firstName">Nome</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                    <Input id="firstName" type="text" placeholder="João" className="pl-10" required />
-                  </div>
-                </div>
-                <div>
-                  <Label htmlFor="lastName">Apelido</Label>
-                  <Input id="lastName" type="text" placeholder="Silva" required />
+              <div>
+                <Label htmlFor="name">Nome Completo</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <Input 
+                    id="name" 
+                    type="text" 
+                    placeholder="João Silva" 
+                    className="pl-10" 
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required 
+                  />
                 </div>
               </div>
 
@@ -109,7 +136,15 @@ export default function RegisterPage() {
                 <Label htmlFor="email">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                  <Input id="email" type="email" placeholder="seu@email.com" className="pl-10" required />
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="seu@email.com" 
+                    className="pl-10" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required 
+                  />
                 </div>
               </div>
 
@@ -122,6 +157,8 @@ export default function RegisterPage() {
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
                     className="pl-10 pr-10"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                   <button
@@ -143,6 +180,8 @@ export default function RegisterPage() {
                     type={showConfirmPassword ? "text" : "password"}
                     placeholder="••••••••"
                     className="pl-10 pr-10"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
                   <button
@@ -160,29 +199,29 @@ export default function RegisterPage() {
                   id="terms"
                   name="terms"
                   type="checkbox"
-                  className="h-4 w-4 text-[#C17C5D] focus:ring-[#C17C5D] border-gray-300 rounded"
+                  className="h-4 w-4 text-primary focus:ring-[#6F5E53] border-gray-300 rounded"
                   required
                 />
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
                   Aceito os{" "}
-                  <Link href="/termos" className="text-[#C17C5D] hover:text-[#A66A4D]">
+                  <Link href="/termos" className="text-primary hover:text-[#C3A995]">
                     Termos e Condições
                   </Link>{" "}
                   e a{" "}
-                  <Link href="/privacidade" className="text-[#C17C5D] hover:text-[#A66A4D]">
+                  <Link href="/privacidade" className="text-primary hover:text-[#C3A995]">
                     Política de Privacidade
                   </Link>
                 </label>
               </div>
 
-              <Button type="submit" disabled={isLoading} className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
+              <Button type="submit" disabled={isLoading} className="w-full bg-primary hover:bg-primary/90 text-white">
                 {isLoading ? "A criar conta..." : "Criar Conta"}
               </Button>
             </form>
 
             <div className="text-center text-sm text-gray-600">
               Já tem conta?{" "}
-              <Link href="/login" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
+              <Link href="/login" className="font-medium text-primary hover:text-[#C3A995]">
                 Entre aqui
               </Link>
             </div>
@@ -191,7 +230,7 @@ export default function RegisterPage() {
 
         {/* Back to home */}
         <div className="text-center">
-          <Link href="/" className="text-sm text-gray-600 hover:text-[#C17C5D]">
+          <Link href="/" className="text-sm text-gray-600 hover:text-primary">
             ← Voltar ao início
           </Link>
         </div>

@@ -14,14 +14,18 @@ interface User {
   location?: string
   bio?: string
   website?: string
+  role?: "user" | "admin" | "moderator"
 }
 
 interface AuthContextType {
   user: User | null
   isLoading: boolean
   login: (email: string, password: string) => Promise<void>
+  loginWithGoogle: () => Promise<void>
+  register: (name: string, email: string, password: string) => Promise<void>
   logout: () => void
   isAuthenticated: boolean
+  isAdmin: boolean
   addToFavorites: (eventId: string) => void
   removeFromFavorites: (eventId: string) => void
   isFavorite: (eventId: string) => boolean
@@ -45,8 +49,28 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const login = async (email: string, password: string) => {
-    // Simulate login API call
-    const mockUser = {
+    // Verificar credenciais de admin específicas
+    if (email === "admin@leiriagenda.pt" && password === "leiriagenda2025") {
+      const adminUser: User = {
+        id: "admin_1",
+        name: "Administrador",
+        email: "admin@leiriagenda.pt",
+        avatar: "/placeholder.svg?height=40&width=40&text=AD",
+        favorites: [],
+        phone: "",
+        location: "Leiria, Portugal",
+        bio: "Administrador do sistema",
+        website: "",
+        role: "admin",
+      }
+
+      setUser(adminUser)
+      localStorage.setItem("leiria-agenda-user", JSON.stringify(adminUser))
+      return
+    }
+
+    // Simulate login API call for normal users
+    const mockUser: User = {
       id: "1",
       name: "João Silva",
       email: email,
@@ -56,10 +80,47 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       location: "Leiria, Portugal",
       bio: "",
       website: "",
+      role: "user",
     }
 
     setUser(mockUser)
     localStorage.setItem("leiria-agenda-user", JSON.stringify(mockUser))
+  }
+
+  const loginWithGoogle = async () => {
+    // Simulate Google OAuth login
+    const mockGoogleUser = {
+      id: "google_" + Date.now(),
+      name: "Google User",
+      email: "user@gmail.com",
+      avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=GoogleUser",
+      favorites: [],
+      phone: "",
+      location: "",
+      bio: "",
+      website: "",
+    }
+
+    setUser(mockGoogleUser)
+    localStorage.setItem("leiria-agenda-user", JSON.stringify(mockGoogleUser))
+  }
+
+  const register = async (name: string, email: string, password: string) => {
+    // Simulate registration API call
+    const newUser = {
+      id: Date.now().toString(),
+      name,
+      email,
+      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${name}`,
+      favorites: [],
+      phone: "",
+      location: "",
+      bio: "",
+      website: "",
+    }
+
+    setUser(newUser)
+    localStorage.setItem("leiria-agenda-user", JSON.stringify(newUser))
   }
 
   const logout = () => {
@@ -126,8 +187,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         user,
         isLoading,
         login,
+        loginWithGoogle,
+        register,
         logout,
         isAuthenticated: !!user,
+        isAdmin: user?.role === "admin",
         addToFavorites,
         removeFromFavorites,
         isFavorite,

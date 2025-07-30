@@ -18,7 +18,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { login } = useAuth()
+  const { login, loginWithGoogle } = useAuth()
   const router = useRouter()
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -35,8 +35,16 @@ export default function LoginPage() {
     }
   }
 
-  const handleGoogleLogin = () => {
-    alert("Login com Google em desenvolvimento!")
+  const handleGoogleLogin = async () => {
+    setIsLoading(true)
+    try {
+      await loginWithGoogle()
+      router.push("/")
+    } catch (error) {
+      alert("Erro no login com Google. Tente novamente.")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -45,13 +53,13 @@ export default function LoginPage() {
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex items-center space-x-2">
-            <Calendar className="h-8 w-8 text-[#C17C5D]" />
-            <span className="text-2xl font-bold text-[#C17C5D]">LeiriAgenda</span>
+            <Calendar className="h-8 w-8 text-primary" />
+            <span className="text-2xl font-bold text-primary">LeiriAgenda</span>
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">Entre na sua conta</h2>
           <p className="mt-2 text-sm text-gray-600">
             Ou{" "}
-            <Link href="/registo" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
+            <Link href="/registo" className="font-medium text-primary hover:text-[#C3A995]">
               crie uma conta nova
             </Link>
           </p>
@@ -145,7 +153,7 @@ export default function LoginPage() {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
-                    className="h-4 w-4 text-[#C17C5D] focus:ring-[#C17C5D] border-gray-300 rounded"
+                    className="h-4 w-4 text-primary focus:ring-[#6F5E53] border-gray-300 rounded"
                   />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
                     Lembrar-me
@@ -153,20 +161,20 @@ export default function LoginPage() {
                 </div>
 
                 <div className="text-sm">
-                  <Link href="/recuperar-password" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
+                  <Link href="/recuperar-password" className="font-medium text-primary hover:text-[#C3A995]">
                     Esqueceu a palavra-passe?
                   </Link>
                 </div>
               </div>
 
-              <Button type="submit" disabled={isLoading} className="w-full bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
+              <Button type="submit" disabled={isLoading} className="w-full bg-primary hover:bg-primary/90 text-white">
                 {isLoading ? "A entrar..." : "Entrar"}
               </Button>
             </form>
 
             <div className="text-center text-sm text-gray-600">
               Não tem conta?{" "}
-              <Link href="/registo" className="font-medium text-[#C17C5D] hover:text-[#A66A4D]">
+              <Link href="/registo" className="font-medium text-primary hover:text-[#C3A995]">
                 Registe-se aqui
               </Link>
             </div>
@@ -175,7 +183,7 @@ export default function LoginPage() {
 
         {/* Back to home */}
         <div className="text-center">
-          <Link href="/" className="text-sm text-gray-600 hover:text-[#C17C5D]">
+          <Link href="/" className="text-sm text-gray-600 hover:text-primary">
             ← Voltar ao início
           </Link>
         </div>

@@ -68,7 +68,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#C17C5D] to-[#A66A4D] py-16 md:py-24">
+      <section className="relative bg-gradient-to-r from-palette-deep to-palette-warm-dark py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center text-white">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">Sobre a LeiriAgenda</h1>
@@ -77,7 +77,7 @@ export default function AboutPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/eventos">
-                <Button size="lg" className="bg-white text-[#C17C5D] hover:bg-gray-100">
+                <Button size="lg" className="bg-white text-primary hover:bg-gray-100">
                   Explorar Eventos
                 </Button>
               </Link>
@@ -85,7 +85,7 @@ export default function AboutPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-[#C17C5D] bg-transparent"
+                  className="border-white text-white hover:bg-white hover:text-primary bg-transparent"
                 >
                   Submeter Evento
                 </Button>
@@ -102,7 +102,7 @@ export default function AboutPage() {
             {stats.map((stat) => (
               <Card key={stat.label} className="text-center">
                 <CardContent className="p-6">
-                  <stat.icon className="h-8 w-8 text-[#C17C5D] mx-auto mb-4" />
+                  <stat.icon className="h-8 w-8 text-primary mx-auto mb-4" />
                   <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
                   <div className="text-sm text-gray-600">{stat.label}</div>
                 </CardContent>
@@ -150,8 +150,8 @@ export default function AboutPage() {
             {values.map((value) => (
               <Card key={value.title} className="text-center">
                 <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-[#C17C5D]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <value.icon className="h-8 w-8 text-[#C17C5D]" />
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <value.icon className="h-8 w-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">{value.title}</h3>
                   <p className="text-gray-600">{value.description}</p>
@@ -176,20 +176,20 @@ export default function AboutPage() {
                     className="w-32 h-32 rounded-full mx-auto mb-6 object-cover"
                   />
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{member.name}</h3>
-                  <Badge className="bg-[#C17C5D] text-white mb-4">{member.role}</Badge>
+                  <Badge className="bg-primary text-white mb-4">{member.role}</Badge>
                   <p className="text-gray-600 mb-6">{member.bio}</p>
                   <div className="flex justify-center space-x-4">
                     {member.social.linkedin && (
-                      <a href={member.social.linkedin} className="text-gray-400 hover:text-[#C17C5D]">
+                      <a href={member.social.linkedin} className="text-gray-400 hover:text-primary">
                         <Linkedin className="h-5 w-5" />
                       </a>
                     )}
                     {member.social.github && (
-                      <a href={member.social.github} className="text-gray-400 hover:text-[#C17C5D]">
+                      <a href={member.social.github} className="text-gray-400 hover:text-primary">
                         <Github className="h-5 w-5" />
                       </a>
                     )}
-                    <a href={`mailto:${member.social.email}`} className="text-gray-400 hover:text-[#C17C5D]">
+                    <a href={`mailto:${member.social.email}`} className="text-gray-400 hover:text-primary">
                       <Mail className="h-5 w-5" />
                     </a>
                   </div>
@@ -201,7 +201,7 @@ export default function AboutPage() {
 
         {/* Community Impact */}
         <section className="mb-16">
-          <Card className="bg-gradient-to-r from-[#C17C5D]/10 to-[#A66A4D]/10">
+          <Card className="bg-gradient-to-r from-palette-deep/10 to-palette-warm-dark/10">
             <CardContent className="p-12 text-center">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Impacto na Comunidade</h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
@@ -211,15 +211,15 @@ export default function AboutPage() {
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                  <div className="text-3xl font-bold text-[#C17C5D] mb-2">95%</div>
+                  <div className="text-3xl font-bold text-primary mb-2">95%</div>
                   <div className="text-gray-600">Satisfação dos utilizadores</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[#C17C5D] mb-2">24h</div>
+                  <div className="text-3xl font-bold text-primary mb-2">24h</div>
                   <div className="text-gray-600">Tempo médio de aprovação</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-[#C17C5D] mb-2">100%</div>
+                  <div className="text-3xl font-bold text-primary mb-2">100%</div>
                   <div className="text-gray-600">Gratuito para todos</div>
                 </div>
               </div>
@@ -235,7 +235,7 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/registo">
-              <Button size="lg" className="bg-[#C17C5D] hover:bg-[#A66A4D] text-white">
+              <Button size="lg" className="bg-primary hover:bg-primary/90 text-white">
                 Criar Conta Gratuita
               </Button>
             </Link>
@@ -243,7 +243,7 @@ export default function AboutPage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-[#C17C5D] text-[#C17C5D] hover:bg-[#C17C5D] hover:text-white bg-transparent"
+                className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
               >
                 Falar Connosco
               </Button>

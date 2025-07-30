@@ -10,7 +10,7 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 19 43% 56%; /* #C17C5D convertido corretamente para HSL */
+    --primary: 25 22% 55%; /* #B08968 convertido para HSL */
     --primary-foreground: 0 0% 98%;
     --secondary: 210 40% 96%;
     --secondary-foreground: 222.2 84% 4.9%;
@@ -24,6 +24,14 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 47.9 95.8% 53.1%;
     --radius: 0.5rem;
+    /* Paleta customizada */
+    --palette-cream: 33 60% 92%; /* #EDE0D4 */
+    --palette-sand: 29 50% 83%; /* #E6CCB2 */
+    --palette-warm-tan: 33 44% 78%; /* #DDB892 */
+    --palette-earthy-brown: 25 22% 55%; /* #B08968 */
+    --palette-rich-brown: 25 39% 36%; /* #7F5539 */
+    --palette-dark-brown: 21 26% 51%; /* #9C6644 */
+    --radius: 0.5rem;
   }
 
   [data-theme="dark"] {
@@ -33,7 +41,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 19 43% 56%; /* Mesmo valor para modo escuro */
+    --primary: 25 22% 55%; /* Mesmo valor para modo escuro */
     --primary-foreground: 0 0% 98%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -46,6 +54,13 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 47.9 95.8% 53.1%;
+    /* Paleta customizada para modo escuro */
+    --palette-cream: 33 60% 92%;
+    --palette-sand: 29 50% 83%;
+    --palette-warm-tan: 33 44% 78%;
+    --palette-earthy-brown: 25 22% 55%;
+    --palette-rich-brown: 25 39% 36%;
+    --palette-dark-brown: 21 26% 51%;
   }
 }
 
