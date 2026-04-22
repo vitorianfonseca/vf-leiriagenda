@@ -71,9 +71,9 @@ export default function AdminSecurityPage() {
 
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-white">
+      <div className="flex-1 bg-background">
         {/* Header */}
-        <div className="bg-white border-b">
+        <div className="bg-card border-b">
           <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-palette-deep mb-2">Segurança</h1>
             <p className="text-palette-warm-dark">Monitorizar e gerir a segurança da plataforma</p>
@@ -101,52 +101,52 @@ export default function AdminSecurityPage() {
           <TabsContent value="overview" className="space-y-6">
             {/* Métricas de segurança */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Tentativas Falhadas</p>
                       <p className="text-2xl font-bold text-red-600">3</p>
-                      <p className="text-xs text-gray-500">Últimas 24h</p>
+                      <p className="text-xs text-primary/50">Últimas 24h</p>
                     </div>
                     <AlertTriangle className="h-8 w-8 text-red-600" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Logins Bem-sucedidos</p>
                       <p className="text-2xl font-bold text-green-600">47</p>
-                      <p className="text-xs text-gray-500">Últimas 24h</p>
+                      <p className="text-xs text-primary/50">Últimas 24h</p>
                     </div>
                     <Shield className="h-8 w-8 text-green-600" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Sessões Ativas</p>
                       <p className="text-2xl font-bold text-palette-warm-beige">12</p>
-                      <p className="text-xs text-gray-500">Agora</p>
+                      <p className="text-xs text-primary/50">Agora</p>
                     </div>
                     <Users className="h-8 w-8 text-palette-warm-beige" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Tokens API</p>
                       <p className="text-2xl font-bold text-purple-600">5</p>
-                      <p className="text-xs text-gray-500">Ativos</p>
+                      <p className="text-xs text-primary/50">Ativos</p>
                     </div>
                     <Key className="h-8 w-8 text-purple-600" />
                   </div>
@@ -155,7 +155,7 @@ export default function AdminSecurityPage() {
             </div>
 
             {/* Configurações rápidas */}
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep">Configurações Rápidas de Segurança</CardTitle>
               </CardHeader>
@@ -188,7 +188,7 @@ export default function AdminSecurityPage() {
           </TabsContent>
 
           <TabsContent value="authentication" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Lock className="h-5 w-5" />
@@ -252,7 +252,7 @@ export default function AdminSecurityPage() {
           </TabsContent>
 
           <TabsContent value="tokens" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Key className="h-5 w-5" />
@@ -272,7 +272,7 @@ export default function AdminSecurityPage() {
 
                 <div className="space-y-4">
                   {activeTokens.map((token) => (
-                    <div key={token.id} className="border border-palette-warm-medium/20 bg-white rounded-lg p-4">
+                    <div key={token.id} className="border border-palette-warm-medium/20 bg-card rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
                         <h4 className="font-semibold text-palette-deep">{token.name}</h4>
                         <div className="flex gap-2">
@@ -312,7 +312,7 @@ export default function AdminSecurityPage() {
           </TabsContent>
 
           <TabsContent value="logs" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Eye className="h-5 w-5" />
@@ -333,13 +333,13 @@ export default function AdminSecurityPage() {
 
                 <div className="space-y-3">
                   {securityLogs.map((log) => (
-                    <div key={log.id} className="border border-palette-warm-medium/20 bg-white rounded-lg p-4">
+                    <div key={log.id} className="border border-palette-warm-medium/20 bg-card rounded-lg p-4">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-3">
                           {getLogTypeBadge(log.type)}
                           <span className="font-medium text-palette-deep">{log.user}</span>
                         </div>
-                        <span className="text-sm text-gray-500">{log.timestamp}</span>
+                        <span className="text-sm text-primary/50">{log.timestamp}</span>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-palette-warm-dark">
                         <div>

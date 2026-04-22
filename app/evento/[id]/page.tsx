@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, MapPin, Clock, Users, Heart, Share2, ArrowLeft } from "lucide-react"
+import { EventComments } from "@/components/event-comments"
+import { QuickShareButton } from "@/components/social-sharing"
 
 // Mock data for event detail
 const eventData = {
@@ -28,11 +30,11 @@ const eventData = {
 
 export default function EventDetailPage({ params }: { params: { id: string } }) {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex-1 bg-background">
       {/* Back Button */}
-      <div className="bg-white border-b">
+      <div className="bg-card border-b">
         <div className="container mx-auto px-4 py-4">
-          <Link href="/" className="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+          <Link href="/" className="inline-flex items-center text-primary/60 hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Voltar aos eventos
           </Link>
@@ -60,22 +62,22 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
             </div>
 
             {/* Event Info */}
-            <div className="bg-white rounded-lg p-6 mb-6">
+            <div className="bg-card rounded-lg p-6 mb-6">
               <div className="mb-4">
                 <Badge variant="secondary" className="mb-2">
                   {eventData.category}
                 </Badge>
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">{eventData.title}</h1>
+                <h1 className="text-3xl font-bold text-foreground mb-4">{eventData.title}</h1>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-primary/60">
                   <Calendar className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">{eventData.date}</div>
                   </div>
                 </div>
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-primary/60">
                   <Clock className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">
@@ -83,14 +85,14 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-primary/60">
                   <MapPin className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">{eventData.location}</div>
                     <div className="text-sm">{eventData.address}</div>
                   </div>
                 </div>
-                <div className="flex items-center text-gray-600">
+                <div className="flex items-center text-primary/60">
                   <Users className="h-5 w-5 mr-3 text-primary" />
                   <div>
                     <div className="font-medium">{eventData.attendees} participantes</div>
@@ -101,12 +103,12 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
 
               <div className="mb-6">
                 <h2 className="text-xl font-semibold mb-3">Sobre o Evento</h2>
-                <div className="text-gray-700 whitespace-pre-line leading-relaxed">{eventData.description}</div>
+                <div className="text-foreground/80 whitespace-pre-line leading-relaxed">{eventData.description}</div>
               </div>
 
               <div className="mb-6">
                 <h3 className="text-lg font-semibold mb-3">Organizador</h3>
-                <p className="text-gray-700">{eventData.organizer}</p>
+                <p className="text-foreground/80">{eventData.organizer}</p>
               </div>
 
               <div>
@@ -130,7 +132,7 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                   <div className="text-3xl font-bold text-primary mb-2">
                     {eventData.isFree ? "Gratuito" : eventData.price}
                   </div>
-                  <p className="text-gray-600">por pessoa</p>
+                  <p className="text-primary/60">por pessoa</p>
                 </div>
 
                 <div className="space-y-3 mb-6">
@@ -160,39 +162,39 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                   <h3 className="font-semibold mb-3">Detalhes Rápidos</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Data:</span>
+                      <span className="text-primary/60">Data:</span>
                       <span className="font-medium">15 Dez 2024</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Hora:</span>
+                      <span className="text-primary/60">Hora:</span>
                       <span className="font-medium">20:00 - 23:30</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Local:</span>
+                      <span className="text-primary/60">Local:</span>
                       <span className="font-medium">Teatro José Lúcio</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-gray-600">Categoria:</span>
+                      <span className="text-primary/60">Categoria:</span>
                       <span className="font-medium">Música</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="border-t pt-6 mt-6">
-                  <div className="bg-gray-50 rounded-lg p-4">
+                  <div className="bg-background rounded-lg p-4">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-gray-600">Lugares ocupados</span>
+                      <span className="text-sm text-primary/60">Lugares ocupados</span>
                       <span className="text-sm font-medium">
                         {Math.round((eventData.attendees / eventData.capacity) * 100)}%
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
+                    <div className="w-full bg-muted rounded-full h-2">
                       <div
                         className="bg-primary h-2 rounded-full"
                         style={{ width: `${(eventData.attendees / eventData.capacity) * 100}%` }}
                       ></div>
                     </div>
-                    <p className="text-xs text-gray-500 mt-2">
+                    <p className="text-xs text-primary/50 mt-2">
                       {eventData.capacity - eventData.attendees} lugares disponíveis
                     </p>
                   </div>

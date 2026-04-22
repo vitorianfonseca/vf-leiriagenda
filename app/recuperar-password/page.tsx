@@ -25,7 +25,7 @@ export default function RecoverPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4">
+    <div className="flex-1 bg-background flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full space-y-8">
         {/* Logo */}
         <div className="text-center">
@@ -33,8 +33,8 @@ export default function RecoverPasswordPage() {
             <Calendar className="h-8 w-8 text-primary" />
             <span className="text-2xl font-bold text-primary">LeiriAgenda</span>
           </Link>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Recuperar Palavra-passe</h2>
-          <p className="mt-2 text-sm text-gray-600">Introduza o seu email para receber instruções de recuperação</p>
+          <h2 className="mt-6 text-3xl font-bold text-foreground">Recuperar Palavra-passe</h2>
+          <p className="mt-2 text-sm text-primary/60">Introduza o seu email para receber instruções de recuperação</p>
         </div>
 
         <Card>
@@ -47,11 +47,11 @@ export default function RecoverPasswordPage() {
                 <div className="w-16 h-16 bg-palette-cream-light rounded-full flex items-center justify-center mx-auto">
                   <Mail className="h-8 w-8 text-green-600" />
                 </div>
-                <p className="text-gray-600">
+                <p className="text-primary/60">
                   Enviámos instruções de recuperação para o seu email. Verifique a sua caixa de entrada e siga as
                   instruções.
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-primary/50">
                   Não recebeu o email? Verifique a pasta de spam ou tente novamente.
                 </p>
                 <Button
@@ -67,7 +67,7 @@ export default function RecoverPasswordPage() {
                 <div>
                   <Label htmlFor="email">Email</Label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary/40 h-4 w-4" />
                     <Input id="email" type="email" placeholder="seu@email.com" className="pl-10" required />
                   </div>
                 </div>
@@ -82,7 +82,7 @@ export default function RecoverPasswordPage() {
               </form>
             )}
 
-            <div className="text-center text-sm text-gray-600">
+            <div className="text-center text-sm text-primary/60">
               Lembrou-se da palavra-passe?{" "}
               <Link href="/login" className="font-medium text-primary hover:text-[#C3A995]">
                 Entre aqui
@@ -93,7 +93,7 @@ export default function RecoverPasswordPage() {
 
         {/* Back to login */}
         <div className="text-center">
-          <Link href="/login" className="inline-flex items-center text-sm text-gray-600 hover:text-primary">
+          <Link href="/login" className="inline-flex items-center text-sm text-primary/60 hover:text-primary">
             <ArrowLeft className="h-4 w-4 mr-1" />
             Voltar ao login
           </Link>

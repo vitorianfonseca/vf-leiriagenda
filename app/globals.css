@@ -4,25 +4,25 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 25 22% 55%; /* #B08968 convertido para HSL */
+    --background: 30 39% 97%; /* #FAF7F4 creme quente */
+    --foreground: 20 77% 7%; /* #1F0D04 castanho escuro */
+    --card: 30 50% 99%;
+    --card-foreground: 20 77% 7%;
+    --popover: 30 50% 99%;
+    --popover-foreground: 20 77% 7%;
+    --primary: 20 77% 7%; /* #1F0D04 castanho escuro */
     --primary-foreground: 0 0% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 84% 4.9%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 84% 4.9%;
+    --secondary: 20 77% 4%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 30 30% 94%;
+    --muted-foreground: 20 40% 40%;
+    --accent: 33 44% 75%; /* #D6C1A6 beige */
+    --accent-foreground: 20 77% 7%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 47.9 95.8% 53.1%;
+    --border: 30 25% 87%;
+    --input: 30 25% 87%;
+    --ring: 20 77% 7%;
     --radius: 0.5rem;
     /* Paleta customizada */
     --palette-cream: 33 60% 92%; /* #EDE0D4 */
@@ -86,5 +86,188 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+  }
+
+  /* Animações customizadas para badges */
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 5px rgba(58, 27, 6, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 15px rgba(58, 27, 6, 0.6), 0 0 25px rgba(214, 193, 166, 0.4);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-2px);
+    }
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(58, 27, 6, 0.1) 0%,
+      rgba(214, 193, 166, 0.3) 50%,
+      rgba(58, 27, 6, 0.1) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) translateX(5px) rotate(90deg);
+  }
+  50% {
+    transform: translateY(-5px) translateX(-3px) rotate(180deg);
+  }
+  75% {
+    transform: translateY(-15px) translateX(2px) rotate(270deg);
+  }
+}
+
+@keyframes float-medium {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-8px) translateX(-4px) rotate(120deg);
+  }
+  66% {
+    transform: translateY(-12px) translateX(6px) rotate(240deg);
+  }
+}
+
+@keyframes float-fast {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  20% {
+    transform: translateY(-6px) translateX(3px) rotate(72deg);
+  }
+  40% {
+    transform: translateY(-10px) translateX(-2px) rotate(144deg);
+  }
+  60% {
+    transform: translateY(-4px) translateX(4px) rotate(216deg);
+  }
+  80% {
+    transform: translateY(-8px) translateX(-1px) rotate(288deg);
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float-medium 6s ease-in-out infinite;
+}
+
+.animate-float-fast {
+  animation: float-fast 4s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 12s linear infinite;
+}
+
+.animate-rotate-reverse {
+  animation: rotate-reverse 10s linear infinite;
+}
+
+.blur-xs {
+  filter: blur(2px);
+}
+
+.blur-sm {
+  filter: blur(4px);
+}
+
+.blur-md {
+  filter: blur(8px);
+}
+
+.blur-lg {
+  filter: blur(12px);
+}
+
+.blur-xl {
+  filter: blur(16px);
+}  @keyframes pulse-glow {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Utility classes adicionais */
+  .scale-102 {
+    transform: scale(1.02);
   }
 }

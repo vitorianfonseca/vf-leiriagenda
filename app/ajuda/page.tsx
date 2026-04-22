@@ -100,19 +100,19 @@ const quickLinks = [
 
 export default function HelpPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex-1 bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Centro de Ajuda</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            <h1 className="text-3xl font-bold text-foreground mb-4">Centro de Ajuda</h1>
+            <p className="text-primary/60 max-w-2xl mx-auto mb-8">
               Encontre respostas às suas perguntas ou entre em contacto connosco
             </p>
 
             {/* Search */}
             <div className="max-w-md mx-auto relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-primary/40 h-5 w-5" />
               <Input placeholder="Procurar na ajuda..." className="pl-10 py-3 text-lg" />
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function HelpPage() {
                 <Card className="hover:shadow-md transition-shadow cursor-pointer">
                   <CardContent className="p-4 text-center">
                     <link.icon className="h-8 w-8 text-primary mx-auto mb-2" />
-                    <h3 className="font-medium text-gray-900">{link.title}</h3>
+                    <h3 className="font-medium text-foreground">{link.title}</h3>
                   </CardContent>
                 </Card>
               </Link>
@@ -133,7 +133,7 @@ export default function HelpPage() {
 
           {/* FAQ Categories */}
           <div className="space-y-8 mb-12">
-            <h2 className="text-2xl font-bold text-gray-900 text-center">Perguntas Frequentes</h2>
+            <h2 className="text-2xl font-bold text-foreground text-center">Perguntas Frequentes</h2>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {faqCategories.map((category) => (
@@ -146,9 +146,9 @@ export default function HelpPage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {category.questions.map((faq, index) => (
-                      <div key={index} className="border-b border-gray-100 last:border-b-0 pb-4 last:pb-0">
-                        <h4 className="font-medium text-gray-900 mb-2">{faq.question}</h4>
-                        <p className="text-sm text-gray-600">{faq.answer}</p>
+                      <div key={index} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
+                        <h4 className="font-medium text-foreground mb-2">{faq.question}</h4>
+                        <p className="text-sm text-primary/60">{faq.answer}</p>
                       </div>
                     ))}
                   </CardContent>
@@ -168,8 +168,8 @@ export default function HelpPage() {
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <MessageCircle className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="font-medium text-gray-900 mb-2">Chat ao Vivo</h3>
-                  <p className="text-sm text-gray-600 mb-4">Fale connosco em tempo real</p>
+                  <h3 className="font-medium text-foreground mb-2">Chat ao Vivo</h3>
+                  <p className="text-sm text-primary/60 mb-4">Fale connosco em tempo real</p>
                   <Button className="bg-primary hover:bg-primary/90 text-white">Iniciar Chat</Button>
                 </div>
 
@@ -177,8 +177,8 @@ export default function HelpPage() {
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Mail className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="font-medium text-gray-900 mb-2">Email</h3>
-                  <p className="text-sm text-gray-600 mb-4">Resposta em 24 horas</p>
+                  <h3 className="font-medium text-foreground mb-2">Email</h3>
+                  <p className="text-sm text-primary/60 mb-4">Resposta em 24 horas</p>
                   <Link href="/contacto">
                     <Button
                       variant="outline"
@@ -193,8 +193,8 @@ export default function HelpPage() {
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Phone className="h-6 w-6 text-primary" />
                   </div>
-                  <h3 className="font-medium text-gray-900 mb-2">Telefone</h3>
-                  <p className="text-sm text-gray-600 mb-4">Seg-Sex: 9h-18h</p>
+                  <h3 className="font-medium text-foreground mb-2">Telefone</h3>
+                  <p className="text-sm text-primary/60 mb-4">Seg-Sex: 9h-18h</p>
                   <Button
                     variant="outline"
                     className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
@@ -208,7 +208,7 @@ export default function HelpPage() {
 
           {/* Popular Articles */}
           <div className="mt-12">
-            <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">Artigos Populares</h2>
+            <h2 className="text-2xl font-bold text-foreground text-center mb-8">Artigos Populares</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 "Como criar um evento de sucesso",
@@ -223,8 +223,8 @@ export default function HelpPage() {
                     <div className="flex items-start space-x-3">
                       <FileText className="h-5 w-5 text-primary mt-1 flex-shrink-0" />
                       <div>
-                        <h3 className="font-medium text-gray-900 mb-1">{article}</h3>
-                        <p className="text-sm text-gray-600">Guia passo a passo</p>
+                        <h3 className="font-medium text-foreground mb-1">{article}</h3>
+                        <p className="text-sm text-primary/60">Guia passo a passo</p>
                         <Badge variant="secondary" className="mt-2 text-xs">
                           5 min de leitura
                         </Badge>

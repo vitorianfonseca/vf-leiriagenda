@@ -1,22 +1,23 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
-import { AuthGuard } from "@/components/auth-guard"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import { Calendar, MapPin, Upload, ArrowLeft } from "lucide-react"
-import Link from "next/link"
 import { FileUploadZone } from "@/components/file-upload-zone"
+import { useToast } from "@/contexts/toast-context"
+import { useAuth } from "@/contexts/auth-context"
+import { useRouter } from "next/navigation"
+import DataService, { type Event } from "@/lib/data-service"
+import { AuthGuard } from "@/components/auth-guard"
 
 export default function SubmitEventPage() {
   const [isFree, setIsFree] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -31,294 +32,305 @@ export default function SubmitEventPage() {
     organizer: "",
     email: "",
     phone: "",
-    website: "",
+    website: ""
   })
+  const [eventImage, setEventImage] = useState<string | null>(null)
+  const { addToast } = useToast()
+  const { user } = useAuth()
+  const router = useRouter()
 
-  const [eventImage, setEventImage] = useState<string>("")
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
-    alert("Evento submetido com sucesso! Será analisado pela nossa equipa.")
+    
+    if (!user) {
+      addToast("Precisa de estar autenticado para submeter um evento", "error")
+      return
+    }
+
+    if (!formData.title || !formData.description || !formData.date || !formData.time || !formData.location || !formData.category) {
+      addToast("Por favor preencha todos os campos obrigatórios", "error")
+      return
+    }
+
+    setIsSubmitting(true)
+    
+    try {
+      const newEvent: Event = {
+        id: Date.now().toString(),
+        title: formData.title,
+        description: formData.description,
+        date: formData.date,
+        time: formData.time,
+        endTime: formData.endTime || undefined,
+        location: formData.location,
+        address: formData.address,
+        category: formData.category,
+        price: isFree ? "Gratuito" : formData.price,
+        isFree,
+        capacity: formData.capacity ? parseInt(formData.capacity) : undefined,
+        organizer: formData.organizer || user.name,
+        email: formData.email || user.email,
+        phone: formData.phone,
+        website: formData.website,
+        image: eventImage || "/placeholder.svg?height=200&width=400&text=Evento",
+        status: "pending",
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        favorites: 0,
+        views: 0
+      }
+
+      DataService.addEvent(newEvent)
+      
+      addToast("Evento submetido com sucesso! Será analisado pela nossa equipa.", "success")
+      
+      setTimeout(() => {
+        router.push("/eventos")
+      }, 2000)
+      
+    } catch (error) {
+      console.error("Erro ao submeter evento:", error)
+      addToast("Erro ao submeter evento. Tente novamente.", "error")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }))
+  }
+
+  const handleImageSelect = (file: File, previewUrl: string) => {
+    setEventImage(previewUrl)
   }
 
   return (
-    <AuthGuard message="Faça login para submeter um evento.">
-      <div className="min-h-screen bg-gray-50">
+    <AuthGuard message="Precisa de iniciar sessão para submeter um evento.">
+    <div className="flex-1 bg-background py-8">
+      <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
-        <div className="bg-white border-b">
-          <div className="container mx-auto px-4 py-6">
-            <Link
-              href="/"
-              className="inline-flex items-center text-gray-600 hover:text-primary transition-colors mb-4"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Voltar ao início
-            </Link>
-            <h1 className="text-3xl font-bold text-gray-900">Submeter Evento</h1>
-            <p className="text-gray-600 mt-2">Partilhe o seu evento com a comunidade de Leiria</p>
-          </div>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Submeter Evento</h1>
+          <p className="text-primary/60">
+            Partilhe o seu evento com a comunidade de Leiria
+          </p>
         </div>
 
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
-            <form onSubmit={handleSubmit} className="space-y-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Informações do Evento</CardTitle>
+            <CardDescription>
+              Preencha os detalhes do seu evento. Os campos marcados com * são obrigatórios.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Calendar className="h-5 w-5 mr-2 text-primary" />
-                    Informações Básicas
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <Label htmlFor="title">Título do Evento *</Label>
-                    <Input
-                      id="title"
-                      placeholder="Ex: Festival de Música de Leiria 2024"
-                      value={formData.title}
-                      onChange={(e) => handleInputChange("title", e.target.value)}
-                      required
-                    />
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="title">Título do Evento *</Label>
+                  <Input
+                    id="title"
+                    value={formData.title}
+                    onChange={(e) => handleInputChange("title", e.target.value)}
+                    placeholder="Ex: Festival de Música de Leiria"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="category">Categoria *</Label>
+                  <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione uma categoria" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Música">Música</SelectItem>
+                      <SelectItem value="Arte">Arte</SelectItem>
+                      <SelectItem value="Cultura">Cultura</SelectItem>
+                      <SelectItem value="Desporto">Desporto</SelectItem>
+                      <SelectItem value="Workshop">Workshop</SelectItem>
+                      <SelectItem value="Teatro">Teatro</SelectItem>
+                      <SelectItem value="Dança">Dança</SelectItem>
+                      <SelectItem value="Literatura">Literatura</SelectItem>
+                      <SelectItem value="Gastronomia">Gastronomia</SelectItem>
+                      <SelectItem value="Outro">Outro</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
 
-                  <div>
-                    <Label htmlFor="description">Descrição *</Label>
-                    <Textarea
-                      id="description"
-                      placeholder="Descreva o seu evento em detalhe..."
-                      rows={5}
-                      value={formData.description}
-                      onChange={(e) => handleInputChange("description", e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="category">Categoria *</Label>
-                    <Select value={formData.category} onValueChange={(value) => handleInputChange("category", value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione uma categoria" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="musica">Música</SelectItem>
-                        <SelectItem value="arte">Arte</SelectItem>
-                        <SelectItem value="cultura">Cultura</SelectItem>
-                        <SelectItem value="desporto">Desporto</SelectItem>
-                        <SelectItem value="workshop">Workshop</SelectItem>
-                        <SelectItem value="gastronomia">Gastronomia</SelectItem>
-                        <SelectItem value="tecnologia">Tecnologia</SelectItem>
-                        <SelectItem value="negócios">Negócios</SelectItem>
-                        <SelectItem value="outro">Outro</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </CardContent>
-              </Card>
+              <div>
+                <Label htmlFor="description">Descrição *</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) => handleInputChange("description", e.target.value)}
+                  placeholder="Descreva o seu evento em detalhes..."
+                  rows={4}
+                  required
+                />
+              </div>
 
               {/* Date and Time */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Data e Horário</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <Label htmlFor="date">Data *</Label>
-                      <Input
-                        id="date"
-                        type="date"
-                        value={formData.date}
-                        onChange={(e) => handleInputChange("date", e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="time">Hora de Início *</Label>
-                      <Input
-                        id="time"
-                        type="time"
-                        value={formData.time}
-                        onChange={(e) => handleInputChange("time", e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="endTime">Hora de Fim</Label>
-                      <Input
-                        id="endTime"
-                        type="time"
-                        value={formData.endTime}
-                        onChange={(e) => handleInputChange("endTime", e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                  <Label htmlFor="date">Data *</Label>
+                  <Input
+                    id="date"
+                    type="date"
+                    value={formData.date}
+                    onChange={(e) => handleInputChange("date", e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="time">Hora de Início *</Label>
+                  <Input
+                    id="time"
+                    type="time"
+                    value={formData.time}
+                    onChange={(e) => handleInputChange("time", e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="endTime">Hora de Fim</Label>
+                  <Input
+                    id="endTime"
+                    type="time"
+                    value={formData.endTime}
+                    onChange={(e) => handleInputChange("endTime", e.target.value)}
+                  />
+                </div>
+              </div>
 
               {/* Location */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <MapPin className="h-5 w-5 mr-2 text-primary" />
-                    Localização
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <Label htmlFor="location">Nome do Local *</Label>
-                    <Input
-                      id="location"
-                      placeholder="Ex: Teatro José Lúcio da Silva"
-                      value={formData.location}
-                      onChange={(e) => handleInputChange("location", e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="address">Morada Completa *</Label>
-                    <Input
-                      id="address"
-                      placeholder="Ex: Largo 5 de Outubro, 2400-109 Leiria"
-                      value={formData.address}
-                      onChange={(e) => handleInputChange("address", e.target.value)}
-                      required
-                    />
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="location">Local *</Label>
+                  <Input
+                    id="location"
+                    value={formData.location}
+                    onChange={(e) => handleInputChange("location", e.target.value)}
+                    placeholder="Ex: Teatro José Lúcio da Silva"
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="address">Endereço</Label>
+                  <Input
+                    id="address"
+                    value={formData.address}
+                    onChange={(e) => handleInputChange("address", e.target.value)}
+                    placeholder="Endereço completo"
+                  />
+                </div>
+              </div>
 
-              {/* Pricing */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Preços e Capacidade</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="flex items-center space-x-2">
-                    <Switch id="free-event" checked={isFree} onCheckedChange={setIsFree} />
-                    <Label htmlFor="free-event">Evento gratuito</Label>
+              {/* Price and Capacity */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Switch
+                      id="isFree"
+                      checked={isFree}
+                      onCheckedChange={setIsFree}
+                    />
+                    <Label htmlFor="isFree">Evento Gratuito</Label>
                   </div>
-
                   {!isFree && (
-                    <div>
-                      <Label htmlFor="price">Preço (€) *</Label>
-                      <Input
-                        id="price"
-                        type="number"
-                        placeholder="25.00"
-                        step="0.01"
-                        value={formData.price}
-                        onChange={(e) => handleInputChange("price", e.target.value)}
-                        required={!isFree}
-                      />
-                    </div>
-                  )}
-
-                  <div>
-                    <Label htmlFor="capacity">Capacidade Máxima</Label>
                     <Input
-                      id="capacity"
-                      type="number"
-                      placeholder="500"
-                      value={formData.capacity}
-                      onChange={(e) => handleInputChange("capacity", e.target.value)}
+                      value={formData.price}
+                      onChange={(e) => handleInputChange("price", e.target.value)}
+                      placeholder="Ex: €25"
                     />
-                  </div>
-                </CardContent>
-              </Card>
+                  )}
+                </div>
+                <div>
+                  <Label htmlFor="capacity">Capacidade</Label>
+                  <Input
+                    id="capacity"
+                    type="number"
+                    value={formData.capacity}
+                    onChange={(e) => handleInputChange("capacity", e.target.value)}
+                    placeholder="Número máximo de participantes"
+                  />
+                </div>
+              </div>
 
               {/* Organizer Information */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Informações do Organizador</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="organizer">Nome/Organização *</Label>
-                      <Input
-                        id="organizer"
-                        placeholder="Ex: Câmara Municipal de Leiria"
-                        value={formData.organizer}
-                        onChange={(e) => handleInputChange("organizer", e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email de Contacto *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="contacto@exemplo.com"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                        required
-                      />
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="organizer">Organizador</Label>
+                  <Input
+                    id="organizer"
+                    value={formData.organizer}
+                    onChange={(e) => handleInputChange("organizer", e.target.value)}
+                    placeholder={user?.name || "Nome do organizador"}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email">Email de Contacto</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    placeholder={user?.email || "email@exemplo.com"}
+                  />
+                </div>
+              </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="phone">Telefone</Label>
-                      <Input
-                        id="phone"
-                        placeholder="+351 244 000 000"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="website">Website</Label>
-                      <Input
-                        id="website"
-                        placeholder="https://www.exemplo.com"
-                        value={formData.website}
-                        onChange={(e) => handleInputChange("website", e.target.value)}
-                      />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="phone">Telefone</Label>
+                  <Input
+                    id="phone"
+                    value={formData.phone}
+                    onChange={(e) => handleInputChange("phone", e.target.value)}
+                    placeholder="+351 123 456 789"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="website">Website</Label>
+                  <Input
+                    id="website"
+                    value={formData.website}
+                    onChange={(e) => handleInputChange("website", e.target.value)}
+                    placeholder="https://www.exemplo.com"
+                  />
+                </div>
+              </div>
 
               {/* Image Upload */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Upload className="h-5 w-5 mr-2 text-primary" />
-                    Imagem do Evento
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <FileUploadZone
-                    onFileSelect={(file, previewUrl) => {
-                      setEventImage(previewUrl)
-                      console.log("Ficheiro selecionado:", file.name)
-                    }}
-                    currentImage={eventImage}
-                    maxSize={5}
-                  />
-                </CardContent>
-              </Card>
+              <div>
+                <Label>Imagem do Evento</Label>
+                <FileUploadZone
+                  onFileSelect={handleImageSelect}
+                  acceptedTypes={["image/jpeg", "image/png", "image/webp"]}
+                  maxSize={5}
+                  className="mt-2"
+                />
+              </div>
 
               {/* Submit Button */}
-              <div className="flex justify-end space-x-4">
-                <Button type="button" variant="outline">
-                  Guardar Rascunho
-                </Button>
-                <Button type="submit" className="bg-primary hover:bg-primary/90 text-white px-8">
-                  Submeter Evento
+              <div className="flex justify-end pt-4">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full md:w-auto bg-primary hover:bg-accent text-white hover:text-accent-foreground"
+                >
+                  {isSubmitting ? "A Submeter..." : "Submeter Evento"}
                 </Button>
               </div>
             </form>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
+    </div>
     </AuthGuard>
   )
 }

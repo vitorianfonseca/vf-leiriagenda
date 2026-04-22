@@ -106,7 +106,7 @@ export function FileUploadZone({
           <img
             src={previewUrl || "/placeholder.svg"}
             alt="Preview"
-            className="w-full h-48 object-cover rounded-lg border-2 border-gray-200"
+            className="w-full h-48 object-cover rounded-lg border-2 border-border"
           />
           <Button
             type="button"
@@ -129,20 +129,20 @@ export function FileUploadZone({
             ${
               isDragging
                 ? "border-primary bg-primary/10"
-                : "border-gray-300 hover:border-primary hover:bg-gray-50"
+                : "border-border hover:border-primary hover:bg-muted/40"
             }
           `}
         >
           {isUploading ? (
             <div className="flex flex-col items-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
-              <p className="text-gray-600">A carregar imagem...</p>
+              <p className="text-primary/60">A carregar imagem...</p>
             </div>
           ) : (
             <>
-              <FileImage className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600 mb-2">Arraste uma imagem ou clique para selecionar</p>
-              <p className="text-sm text-gray-500 mb-4">PNG, JPG, WebP ou GIF até {maxSize}MB</p>
+              <FileImage className="h-12 w-12 text-primary/40 mx-auto mb-4" />
+              <p className="text-primary/60 mb-2">Arraste uma imagem ou clique para selecionar</p>
+              <p className="text-sm text-primary/50 mb-4">PNG, JPG, WebP ou GIF até {maxSize}MB</p>
               <Button type="button" variant="outline" className="bg-transparent">
                 <Upload className="h-4 w-4 mr-2" />
                 Selecionar Imagem

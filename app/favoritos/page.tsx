@@ -81,11 +81,11 @@ function FavoritesContent() {
   const favoriteEvents = allEvents.filter((event) => user?.favorites?.includes(event.id))
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex-1 bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Eventos Favoritos</h1>
-          <p className="text-gray-600">Os eventos que guardou para mais tarde ({favoriteEvents.length} eventos)</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Eventos Favoritos</h1>
+          <p className="text-primary/60">Os eventos que guardou para mais tarde ({favoriteEvents.length} eventos)</p>
         </div>
 
         {favoriteEvents.length > 0 ? (
@@ -96,7 +96,7 @@ function FavoritesContent() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
+            <div className="text-primary/40 mb-4">
               <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
@@ -106,8 +106,8 @@ function FavoritesContent() {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Nenhum evento favorito</h3>
-            <p className="text-gray-600 mb-4">Comece a explorar eventos e adicione aos seus favoritos!</p>
+            <h3 className="text-lg font-medium text-foreground mb-2">Nenhum evento favorito</h3>
+            <p className="text-primary/60 mb-4">Comece a explorar eventos e adicione aos seus favoritos!</p>
             <a
               href="/eventos"
               className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"

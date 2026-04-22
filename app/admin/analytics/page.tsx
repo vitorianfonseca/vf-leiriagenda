@@ -10,12 +10,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export default function AdminAnalyticsPage() {
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-white">
+      <div className="flex-1 bg-background">
         {/* Header */}
-        <div className="bg-white border-b">
+        <div className="bg-card border-b">
           <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold text-palette-deep mb-2">Analytics</h1>
-            <p className="text-palette-warm-dark">Métricas, relatórios e análise de desempenho da plataforma</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Analytics</h1>
+            <p className="text-primary/60">Métricas, relatórios e análise de desempenho da plataforma</p>
           </div>
         </div>
 
@@ -24,7 +24,7 @@ export default function AdminAnalyticsPage() {
         {/* Filtros de período */}
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle className="text-lg text-palette-deep flex items-center gap-2">
+            <CardTitle className="text-lg text-foreground flex items-center gap-2">
               <Filter className="h-5 w-5" />
               Período de Análise
             </CardTitle>
@@ -61,52 +61,52 @@ export default function AdminAnalyticsPage() {
           <TabsContent value="overview" className="space-y-6">
             {/* Métricas principais */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Visualizações</p>
                       <p className="text-2xl font-bold text-primary">15,234</p>
-                      <p className="text-xs text-gray-500">+12% vs mês anterior</p>
+                      <p className="text-xs text-primary/50">+12% vs mês anterior</p>
                     </div>
                     <BarChart3 className="h-8 w-8 text-primary" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Novos Utilizadores</p>
                       <p className="text-2xl font-bold text-primary">342</p>
-                      <p className="text-xs text-gray-500">+8% vs mês anterior</p>
+                      <p className="text-xs text-primary/50">+8% vs mês anterior</p>
                     </div>
                     <Users className="h-8 w-8 text-primary" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Eventos Criados</p>
                       <p className="text-2xl font-bold text-primary">89</p>
-                      <p className="text-xs text-gray-500">+15% vs mês anterior</p>
+                      <p className="text-xs text-primary/50">+15% vs mês anterior</p>
                     </div>
                     <Calendar className="h-8 w-8 text-primary" />
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-palette-warm-dark">Taxa de Conversão</p>
                       <p className="text-2xl font-bold text-primary">4.2%</p>
-                      <p className="text-xs text-gray-500">-2% vs mês anterior</p>
+                      <p className="text-xs text-primary/50">-2% vs mês anterior</p>
                     </div>
                     <TrendingUp className="h-8 w-8 text-primary" />
                   </div>
@@ -116,7 +116,7 @@ export default function AdminAnalyticsPage() {
 
             {/* Gráficos principais */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Visitantes por Dia</CardTitle>
                   <CardDescription className="text-palette-warm-dark">
@@ -124,13 +124,13 @@ export default function AdminAnalyticsPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-white rounded-lg">
-                    <p className="text-gray-500">Gráfico de linha - Visitantes por dia</p>
+                  <div className="h-64 flex items-center justify-center bg-card rounded-lg">
+                    <p className="text-primary/50">Gráfico de linha - Visitantes por dia</p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Eventos por Categoria</CardTitle>
                   <CardDescription className="text-palette-warm-dark">
@@ -138,8 +138,8 @@ export default function AdminAnalyticsPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-white rounded-lg">
-                    <p className="text-gray-500">Gráfico circular - Eventos por categoria</p>
+                  <div className="h-64 flex items-center justify-center bg-card rounded-lg">
+                    <p className="text-primary/50">Gráfico circular - Eventos por categoria</p>
                   </div>
                 </CardContent>
               </Card>
@@ -148,7 +148,7 @@ export default function AdminAnalyticsPage() {
 
           <TabsContent value="events" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Eventos Mais Populares</CardTitle>
                 </CardHeader>
@@ -170,18 +170,18 @@ export default function AdminAnalyticsPage() {
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Performance por Categoria</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-48 flex items-center justify-center bg-white rounded-lg">
-                    <p className="text-gray-500">Gráfico de barras</p>
+                  <div className="h-48 flex items-center justify-center bg-card rounded-lg">
+                    <p className="text-primary/50">Gráfico de barras</p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Taxa de Aprovação</CardTitle>
                 </CardHeader>
@@ -197,18 +197,18 @@ export default function AdminAnalyticsPage() {
 
           <TabsContent value="users" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Crescimento de Utilizadores</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="h-64 flex items-center justify-center bg-white rounded-lg">
-                    <p className="text-gray-500">Gráfico de área - Crescimento mensal</p>
+                  <div className="h-64 flex items-center justify-center bg-card rounded-lg">
+                    <p className="text-primary/50">Gráfico de área - Crescimento mensal</p>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Demografia</CardTitle>
                 </CardHeader>
@@ -219,7 +219,7 @@ export default function AdminAnalyticsPage() {
                         <span>18-25 anos</span>
                         <span>32%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div className="bg-palette-warm-beige h-2 rounded-full" style={{ width: '32%' }}></div>
                       </div>
                     </div>
@@ -228,7 +228,7 @@ export default function AdminAnalyticsPage() {
                         <span>26-35 anos</span>
                         <span>28%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div className="bg-palette-rose-warm h-2 rounded-full" style={{ width: '28%' }}></div>
                       </div>
                     </div>
@@ -237,7 +237,7 @@ export default function AdminAnalyticsPage() {
                         <span>36-50 anos</span>
                         <span>25%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div className="bg-palette-warm-dark h-2 rounded-full" style={{ width: '25%' }}></div>
                       </div>
                     </div>
@@ -246,7 +246,7 @@ export default function AdminAnalyticsPage() {
                         <span>50+ anos</span>
                         <span>15%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div className="bg-palette-warm-dark h-2 rounded-full" style={{ width: '15%' }}></div>
                       </div>
                     </div>
@@ -258,7 +258,7 @@ export default function AdminAnalyticsPage() {
 
           <TabsContent value="engagement" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Tempo Médio na Página</CardTitle>
                 </CardHeader>
@@ -270,7 +270,7 @@ export default function AdminAnalyticsPage() {
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Taxa de Rejeição</CardTitle>
                 </CardHeader>
@@ -282,7 +282,7 @@ export default function AdminAnalyticsPage() {
                 </CardContent>
               </Card>
 
-              <Card className="border-palette-warm-medium/20 bg-white">
+              <Card className="border-palette-warm-medium/20 bg-card">
                 <CardHeader>
                   <CardTitle className="text-palette-deep">Páginas por Sessão</CardTitle>
                 </CardHeader>

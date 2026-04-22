@@ -14,9 +14,9 @@ import { Settings, Save, Globe, Mail, Shield, Database, Palette, Users } from "l
 export default function AdminSettingsPage() {
   return (
     <AdminGuard>
-      <div className="min-h-screen bg-white">
+      <div className="flex-1 bg-background">
         {/* Header */}
-        <div className="bg-white border-b">
+        <div className="bg-card border-b">
           <div className="container mx-auto px-4 py-8">
             <h1 className="text-3xl font-bold text-palette-deep mb-2">Configurações</h1>
             <p className="text-palette-warm-dark">Configurar preferências e definições do sistema</p>
@@ -50,7 +50,7 @@ export default function AdminSettingsPage() {
           </TabsList>
 
           <TabsContent value="general" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Globe className="h-5 w-5" />
@@ -116,7 +116,7 @@ export default function AdminSettingsPage() {
           </TabsContent>
 
           <TabsContent value="email" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Mail className="h-5 w-5" />
@@ -176,7 +176,7 @@ export default function AdminSettingsPage() {
           </TabsContent>
 
           <TabsContent value="security" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Shield className="h-5 w-5" />
@@ -232,7 +232,7 @@ export default function AdminSettingsPage() {
           </TabsContent>
 
           <TabsContent value="appearance" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Palette className="h-5 w-5" />
@@ -292,7 +292,7 @@ export default function AdminSettingsPage() {
           </TabsContent>
 
           <TabsContent value="advanced" className="space-y-6">
-            <Card className="border-palette-warm-medium/20 bg-white">
+            <Card className="border-palette-warm-medium/20 bg-card">
               <CardHeader>
                 <CardTitle className="text-palette-deep flex items-center gap-2">
                   <Database className="h-5 w-5" />

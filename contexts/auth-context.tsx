@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { createContext, useContext, useState, useEffect } from "react"
 
 interface User {
@@ -15,6 +14,9 @@ interface User {
   bio?: string
   website?: string
   role?: "user" | "admin" | "moderator"
+  provider?: "email" | "google"
+  joinDate?: string
+  lastLogin?: string
 }
 
 interface AuthContextType {
@@ -35,121 +37,230 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
+// Chaves para localStorage
+const USERS_KEY = "leiria-agenda-users"
+const CURRENT_USER_KEY = "leiria-agenda-user"
+
+// Utilizador admin padrão
+const DEFAULT_ADMIN_USER: User = {
+  id: "admin_1",
+  name: "Administrador",
+  email: "admin@leiriagenda.pt",
+  avatar: "https://api.dicebear.com/7.x/initials/svg?seed=AD",
+  favorites: [],
+  phone: "",
+  location: "Leiria, Portugal",
+  bio: "Administrador do sistema",
+  website: "",
+  role: "admin",
+  provider: "email",
+  joinDate: "2024-01-01T00:00:00.000Z",
+  lastLogin: new Date().toISOString(),
+}
+
+function getStoredUsers(): User[] {
+  if (typeof window === "undefined") return [DEFAULT_ADMIN_USER]
+  try {
+    const stored = localStorage.getItem(USERS_KEY)
+    if (stored) {
+      const users = JSON.parse(stored)
+      // Garantir que o admin sempre existe
+      if (!users.find(u => u.email === DEFAULT_ADMIN_USER.email)) {
+        return [DEFAULT_ADMIN_USER, ...users]
+      }
+      return users
+    }
+    return [DEFAULT_ADMIN_USER]
+  } catch (error) {
+    console.error("Erro ao carregar utilizadores:", error)
+    return [DEFAULT_ADMIN_USER]
+  }
+}
+
+function storeUsers(users: User[]): void {
+  if (typeof window === "undefined") return
+  try {
+    localStorage.setItem(USERS_KEY, JSON.stringify(users))
+  } catch (error) {
+    console.error("Erro ao guardar utilizadores:", error)
+  }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if user is logged in (simulate checking localStorage/cookies)
-    const savedUser = localStorage.getItem("leiria-agenda-user")
-    if (savedUser) {
-      setUser(JSON.parse(savedUser))
+    // Verificar se há um utilizador logado
+    try {
+      const savedUser = localStorage.getItem(CURRENT_USER_KEY)
+      if (savedUser) {
+        const parsedUser = JSON.parse(savedUser)
+        setUser(parsedUser)
+      }
+    } catch (error) {
+      console.error("Erro ao carregar utilizador:", error)
+      localStorage.removeItem(CURRENT_USER_KEY)
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }, [])
 
-  const login = async (email: string, password: string) => {
-    // Verificar credenciais de admin específicas
-    if (email === "admin@leiriagenda.pt" && password === "leiriagenda2025") {
-      const adminUser: User = {
-        id: "admin_1",
-        name: "Administrador",
-        email: "admin@leiriagenda.pt",
-        avatar: "/placeholder.svg?height=40&width=40&text=AD",
-        favorites: [],
-        phone: "",
-        location: "Leiria, Portugal",
-        bio: "Administrador do sistema",
-        website: "",
-        role: "admin",
+  const register = async (name: string, email: string, password: string) => {
+    try {
+      const users = getStoredUsers()
+      
+      // Verificar se o email já existe
+      if (users.find(u => u.email === email)) {
+        throw new Error("Email já está em uso")
       }
 
-      setUser(adminUser)
-      localStorage.setItem("leiria-agenda-user", JSON.stringify(adminUser))
-      return
-    }
+      const newUser: User = {
+        id: Date.now().toString(),
+        name,
+        email,
+        avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${name}`,
+        favorites: [],
+        role: "user",
+        provider: "email",
+        joinDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+      }
 
-    // Simulate login API call for normal users
-    const mockUser: User = {
-      id: "1",
-      name: "João Silva",
-      email: email,
-      avatar: "/placeholder.svg?height=40&width=40&text=JS",
-      favorites: ["1", "3"], // Mock favorite events
-      phone: "",
-      location: "Leiria, Portugal",
-      bio: "",
-      website: "",
-      role: "user",
+      const updatedUsers = [...users, newUser]
+      storeUsers(updatedUsers)
+      
+      setUser(newUser)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(newUser))
+    } catch (error) {
+      console.error("Erro no registo:", error)
+      throw error
     }
+  }
 
-    setUser(mockUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(mockUser))
+  const login = async (email: string, password: string) => {
+    try {
+      // Verificar credenciais de admin específicas
+      if (email === "admin@leiriagenda.pt" && password === "leiriagenda2025") {
+        setUser(DEFAULT_ADMIN_USER)
+        localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(DEFAULT_ADMIN_USER))
+        return
+      }
+
+      const users = getStoredUsers()
+      const foundUser = users.find(u => u.email === email)
+      
+      if (!foundUser) {
+        throw new Error("Utilizador não encontrado")
+      }
+
+      // Simular verificação de password (em produção usaria hashing)
+      // Para demo, qualquer password funciona
+      
+      const updatedUser = {
+        ...foundUser,
+        lastLogin: new Date().toISOString()
+      }
+
+      // Atualizar na lista de utilizadores
+      const updatedUsers = users.map(u => u.id === foundUser.id ? updatedUser : u)
+      storeUsers(updatedUsers)
+      
+      setUser(updatedUser)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser))
+    } catch (error) {
+      console.error("Erro no login:", error)
+      throw error
+    }
   }
 
   const loginWithGoogle = async () => {
-    // Simulate Google OAuth login
-    const mockGoogleUser = {
-      id: "google_" + Date.now(),
-      name: "Google User",
-      email: "user@gmail.com",
-      avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=GoogleUser",
-      favorites: [],
-      phone: "",
-      location: "",
-      bio: "",
-      website: "",
+    try {
+      // Simular login com Google
+      // Em produção, usaria a Google OAuth API
+      
+      const mockGoogleUser: User = {
+        id: `google_${Date.now()}`,
+        name: "Google User",
+        email: "user@gmail.com",
+        avatar: "https://api.dicebear.com/7.x/avatars/svg?seed=GoogleUser",
+        favorites: [],
+        role: "user",
+        provider: "google",
+        joinDate: new Date().toISOString(),
+        lastLogin: new Date().toISOString(),
+      }
+
+      const users = getStoredUsers()
+      const existingUser = users.find(u => u.email === mockGoogleUser.email)
+      
+      let userToLogin: User
+      
+      if (existingUser) {
+        // Utilizador já existe, fazer login
+        userToLogin = {
+          ...existingUser,
+          lastLogin: new Date().toISOString()
+        }
+        const updatedUsers = users.map(u => u.id === existingUser.id ? userToLogin : u)
+        storeUsers(updatedUsers)
+      } else {
+        // Criar novo utilizador
+        userToLogin = mockGoogleUser
+        storeUsers([...users, userToLogin])
+      }
+      
+      setUser(userToLogin)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(userToLogin))
+    } catch (error) {
+      console.error("Erro no login com Google:", error)
+      throw error
     }
-
-    setUser(mockGoogleUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(mockGoogleUser))
-  }
-
-  const register = async (name: string, email: string, password: string) => {
-    // Criar utilizador com avatar aleatório
-    const newUser = {
-      id: Date.now().toString(),
-      name,
-      email,
-      avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${name.replace(/\s+/g, '').toLowerCase()}&backgroundColor=transparent`,
-      favorites: [],
-      phone: "",
-      location: "",
-      bio: "",
-      website: "",
-    }
-
-    setUser(newUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(newUser))
   }
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("leiria-agenda-user")
+    localStorage.removeItem(CURRENT_USER_KEY)
   }
 
   const addToFavorites = (eventId: string) => {
     if (!user) return
 
-    const updatedUser = {
-      ...user,
-      favorites: [...(user.favorites || []), eventId],
-    }
+    try {
+      const updatedUser = {
+        ...user,
+        favorites: [...(user.favorites || []), eventId],
+      }
 
-    setUser(updatedUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(updatedUser))
+      const users = getStoredUsers()
+      const updatedUsers = users.map(u => u.id === user.id ? updatedUser : u)
+      storeUsers(updatedUsers)
+      
+      setUser(updatedUser)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser))
+    } catch (error) {
+      console.error("Erro ao adicionar favorito:", error)
+    }
   }
 
   const removeFromFavorites = (eventId: string) => {
     if (!user) return
 
-    const updatedUser = {
-      ...user,
-      favorites: (user.favorites || []).filter((id) => id !== eventId),
-    }
+    try {
+      const updatedUser = {
+        ...user,
+        favorites: (user.favorites || []).filter((id) => id !== eventId),
+      }
 
-    setUser(updatedUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(updatedUser))
+      const users = getStoredUsers()
+      const updatedUsers = users.map(u => u.id === user.id ? updatedUser : u)
+      storeUsers(updatedUsers)
+      
+      setUser(updatedUser)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser))
+    } catch (error) {
+      console.error("Erro ao remover favorito:", error)
+    }
   }
 
   const isFavorite = (eventId: string) => {
@@ -160,25 +271,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const updateProfile = (updatedData: Partial<User>) => {
     if (!user) return
 
-    const updatedUser = {
-      ...user,
-      ...updatedData,
-    }
+    try {
+      const updatedUser = {
+        ...user,
+        ...updatedData,
+      }
 
-    setUser(updatedUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(updatedUser))
+      const users = getStoredUsers()
+      const updatedUsers = users.map(u => u.id === user.id ? updatedUser : u)
+      storeUsers(updatedUsers)
+      
+      setUser(updatedUser)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser))
+    } catch (error) {
+      console.error("Erro ao atualizar perfil:", error)
+    }
   }
 
   const updateAvatar = (avatarUrl: string) => {
     if (!user) return
 
-    const updatedUser = {
-      ...user,
-      avatar: avatarUrl,
-    }
+    try {
+      const updatedUser = {
+        ...user,
+        avatar: avatarUrl,
+      }
 
-    setUser(updatedUser)
-    localStorage.setItem("leiria-agenda-user", JSON.stringify(updatedUser))
+      const users = getStoredUsers()
+      const updatedUsers = users.map(u => u.id === user.id ? updatedUser : u)
+      storeUsers(updatedUsers)
+      
+      setUser(updatedUser)
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(updatedUser))
+    } catch (error) {
+      console.error("Erro ao atualizar avatar:", error)
+    }
   }
 
   return (

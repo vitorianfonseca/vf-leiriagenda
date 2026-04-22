@@ -5,12 +5,14 @@ import { Button } from "@/components/ui/button"
 import { Shield, Copy, ExternalLink } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
+import { useToast } from "@/contexts/toast-context"
 
 export function AdminAccessCard() {
+  const { addToast } = useToast()
+
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
-    // Em uma implementação real, mostraria um toast de sucesso
-    alert("Copiado para a área de transferência!")
+    addToast("Copiado para a área de transferência!", "success")
   }
 
   return (
@@ -26,11 +28,11 @@ export function AdminAccessCard() {
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-3">
-          <div className="flex items-center justify-between p-3 bg-white rounded-lg border">
+          <div className="flex items-center justify-between p-3 bg-card rounded-lg border">
             <div>
               <Badge className="mb-1 bg-palette-earthy-brown text-white">Conta Admin 1</Badge>
               <p className="text-sm font-mono">admin@leiria.pt</p>
-              <p className="text-xs text-gray-500">Password: qualquer</p>
+              <p className="text-xs text-primary/50">Password: qualquer</p>
             </div>
             <Button
               variant="outline"
@@ -42,11 +44,11 @@ export function AdminAccessCard() {
             </Button>
           </div>
 
-          <div className="flex items-center justify-between p-3 bg-white rounded-lg border">
+          <div className="flex items-center justify-between p-3 bg-card rounded-lg border">
             <div>
               <Badge className="mb-1 bg-palette-earthy-brown text-white">Conta Admin 2</Badge>
               <p className="text-sm font-mono">admin@leiriagenda.com</p>
-              <p className="text-xs text-gray-500">Password: qualquer</p>
+              <p className="text-xs text-primary/50">Password: qualquer</p>
             </div>
             <Button
               variant="outline"

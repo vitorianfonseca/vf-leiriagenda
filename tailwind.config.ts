@@ -27,32 +27,38 @@ const config: Config = {
         popover: "hsl(var(--popover))",
         "popover-foreground": "hsl(var(--popover-foreground))",
         primary: {
-          DEFAULT: "#77AF87", // Verde principal
+          DEFAULT: "#1F0D04", // Castanho muito escuro principal
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#5D8E6A", // Verde mais escuro para gradientes
+          DEFAULT: "#120602", // Castanho quase preto
           foreground: "#FFFFFF",
         },
         muted: {
-          DEFAULT: "#F8F9FA", // Cinza muito claro
-          foreground: "#77AF87",
+          DEFAULT: "#F5EDE6",
+          foreground: "#3A1B06",
         },
         accent: {
-          DEFAULT: "#D4AF37", // Dourado para detalhes
-          foreground: "#FFFFFF",
+          DEFAULT: "#D6C1A6", // Beige para detalhes
+          foreground: "#231008",
         },
         gold: {
-          DEFAULT: "#D4AF37", // Dourado principal
-          light: "#F4E4BC", // Dourado claro
-          bright: "#FFD700", // Dourado brilhante para detalhes
-          dark: "#B8941F", // Dourado escuro
+          DEFAULT: "#3A1B06",
+          light: "#F5EDE6",
+          bright: "#6B3E1E",
+          dark: "#231008",
         },
-        green: {
-          primary: "#77AF87", // Verde principal
-          dark: "#5D8E6A", // Verde escuro
-          light: "#A8C8B0", // Verde claro
-          muted: "#E8F1EA", // Verde muito claro para fundos
+        beige: {
+          light: "#E8DCC6",
+          DEFAULT: "#D6C1A6",
+          dark: "#C4B08F",
+          foreground: "#231008",
+        },
+        brown: {
+          primary: "#3A1B06",
+          dark: "#231008",
+          light: "#6B3E1E",
+          muted: "#F5EDE6",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -68,6 +74,15 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+      },
+      backgroundImage: {
+        'gradient-brown': 'linear-gradient(90deg, #231008, #3A1B06, #6B3E1E)',
+        'gradient-brown-reverse': 'linear-gradient(270deg, #231008, #3A1B06, #6B3E1E)',
+        'gradient-brown-radial': 'radial-gradient(circle, #231008, #3A1B06, #6B3E1E)',
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "Georgia", "serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",

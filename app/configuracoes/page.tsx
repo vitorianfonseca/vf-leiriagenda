@@ -71,12 +71,12 @@ function SettingsContent() {
   }
 
   const handleExportData = () => {
-    alert("A preparar exportação dos seus dados...")
+    addToast("A preparar exportação dos seus dados...", "info")
   }
 
   const handleDeleteAccount = () => {
     if (confirm("Tem a certeza que quer eliminar a sua conta? Esta ação é irreversível.")) {
-      alert("Conta eliminada com sucesso.")
+      addToast("Conta eliminada com sucesso.", "success")
     }
   }
 
@@ -91,29 +91,29 @@ function SettingsContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex-1 bg-background">
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t("settings.title")}</h1>
-            <p className="text-gray-600 dark:text-gray-400">{t("settings.subtitle")}</p>
+            <h1 className="text-3xl font-bold text-foreground mb-2">{t("settings.title")}</h1>
+            <p className="text-primary/60">{t("settings.subtitle")}</p>
           </div>
 
           <div className="space-y-6">
             {/* Appearance */}
-            <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <Card className="">
               <CardHeader>
-                <CardTitle className="flex items-center dark:text-white">
+                <CardTitle className="flex items-center">
                   <Palette className="h-5 w-5 mr-2 text-primary" />
                   {t("settings.appearance")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-base font-medium dark:text-white">{t("settings.theme")}</Label>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{t("settings.themeDesc")}</p>
+                  <Label className="text-base font-medium">{t("settings.theme")}</Label>
+                  <p className="text-sm text-primary/60 mb-3">{t("settings.themeDesc")}</p>
                   <Select value={theme} onValueChange={handleThemeChange}>
-                    <SelectTrigger className="w-full dark:bg-gray-700 dark:border-gray-600">
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -139,13 +139,13 @@ function SettingsContent() {
                   </Select>
                 </div>
 
-                <Separator className="dark:bg-gray-700" />
+                <Separator className="" />
 
                 <div>
-                  <Label className="text-base font-medium dark:text-white">{t("settings.language")}</Label>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{t("settings.languageDesc")}</p>
+                  <Label className="text-base font-medium">{t("settings.language")}</Label>
+                  <p className="text-sm text-primary/60 mb-3">{t("settings.languageDesc")}</p>
                   <Select value={locale} onValueChange={handleLanguageChange}>
-                    <SelectTrigger className="w-full dark:bg-gray-700 dark:border-gray-600">
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -158,9 +158,9 @@ function SettingsContent() {
             </Card>
 
             {/* Notifications */}
-            <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <Card className="">
               <CardHeader>
-                <CardTitle className="flex items-center dark:text-white">
+                <CardTitle className="flex items-center">
                   <Bell className="h-5 w-5 mr-2 text-primary" />
                   {t("profile.notifications")}
                 </CardTitle>
@@ -168,8 +168,8 @@ function SettingsContent() {
               <CardContent className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">{t("profile.emailNotifications")}</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("profile.emailNotificationsDesc")}</p>
+                    <Label className="">{t("profile.emailNotifications")}</Label>
+                    <p className="text-sm text-primary/60">{t("profile.emailNotificationsDesc")}</p>
                   </div>
                   <Switch
                     checked={settings.notifications.newEvents}
@@ -179,8 +179,8 @@ function SettingsContent() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">{t("profile.pushNotifications")}</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("profile.pushNotificationsDesc")}</p>
+                    <Label className="">{t("profile.pushNotifications")}</Label>
+                    <p className="text-sm text-primary/60">{t("profile.pushNotificationsDesc")}</p>
                   </div>
                   <Switch
                     checked={settings.notifications.eventReminders}
@@ -190,8 +190,8 @@ function SettingsContent() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">Resumo Semanal</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Receber resumo dos eventos da semana</p>
+                    <Label className="">Resumo Semanal</Label>
+                    <p className="text-sm text-primary/60">Receber resumo dos eventos da semana</p>
                   </div>
                   <Switch
                     checked={settings.notifications.weeklyDigest}
@@ -201,8 +201,8 @@ function SettingsContent() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">Marketing</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Receber ofertas e novidades</p>
+                    <Label className="">Marketing</Label>
+                    <p className="text-sm text-primary/60">Receber ofertas e novidades</p>
                   </div>
                   <Switch
                     checked={settings.notifications.marketing}
@@ -213,22 +213,22 @@ function SettingsContent() {
             </Card>
 
             {/* Privacy */}
-            <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <Card className="">
               <CardHeader>
-                <CardTitle className="flex items-center dark:text-white">
+                <CardTitle className="flex items-center">
                   <Shield className="h-5 w-5 mr-2 text-primary" />
                   {t("profile.privacy")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-base font-medium dark:text-white">Visibilidade do Perfil</Label>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Controle quem pode ver o seu perfil</p>
+                  <Label className="text-base font-medium">Visibilidade do Perfil</Label>
+                  <p className="text-sm text-primary/60 mb-3">Controle quem pode ver o seu perfil</p>
                   <Select
                     value={settings.privacy.profileVisibility}
                     onValueChange={(value) => handleSettingChange("privacy", "profileVisibility", value)}
                   >
-                    <SelectTrigger className="w-full dark:bg-gray-700 dark:border-gray-600">
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -241,8 +241,8 @@ function SettingsContent() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">Estado de Atividade</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <Label className="">Estado de Atividade</Label>
+                    <p className="text-sm text-primary/60">
                       Mostrar quando esteve online pela última vez
                     </p>
                   </div>
@@ -254,8 +254,8 @@ function SettingsContent() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">Recolha de Dados</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <Label className="">Recolha de Dados</Label>
+                    <p className="text-sm text-primary/60">
                       Permitir recolha de dados para melhorar o serviço
                     </p>
                   </div>
@@ -268,22 +268,22 @@ function SettingsContent() {
             </Card>
 
             {/* Preferences */}
-            <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <Card className="">
               <CardHeader>
-                <CardTitle className="flex items-center dark:text-white">
+                <CardTitle className="flex items-center">
                   <Settings className="h-5 w-5 mr-2 text-primary" />
                   Preferências
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <Label className="text-base font-medium dark:text-white">Vista Padrão</Label>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Como prefere ver a lista de eventos</p>
+                  <Label className="text-base font-medium">Vista Padrão</Label>
+                  <p className="text-sm text-primary/60 mb-3">Como prefere ver a lista de eventos</p>
                   <Select
                     value={settings.preferences.defaultView}
                     onValueChange={(value) => handleSettingChange("preferences", "defaultView", value)}
                   >
-                    <SelectTrigger className="w-full dark:bg-gray-700 dark:border-gray-600">
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -295,13 +295,13 @@ function SettingsContent() {
                 </div>
 
                 <div>
-                  <Label className="text-base font-medium dark:text-white">Eventos por Página</Label>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Quantos eventos mostrar de cada vez</p>
+                  <Label className="text-base font-medium">Eventos por Página</Label>
+                  <p className="text-sm text-primary/60 mb-3">Quantos eventos mostrar de cada vez</p>
                   <Select
                     value={settings.preferences.eventsPerPage}
                     onValueChange={(value) => handleSettingChange("preferences", "eventsPerPage", value)}
                   >
-                    <SelectTrigger className="w-full dark:bg-gray-700 dark:border-gray-600">
+                    <SelectTrigger className="w-full">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -315,8 +315,8 @@ function SettingsContent() {
 
                 <div className="flex items-center justify-between">
                   <div>
-                    <Label className="dark:text-white">Localização Automática</Label>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                    <Label className="">Localização Automática</Label>
+                    <p className="text-sm text-primary/60">
                       Detectar automaticamente a sua localização
                     </p>
                   </div>
@@ -329,23 +329,23 @@ function SettingsContent() {
             </Card>
 
             {/* Data Management */}
-            <Card className="dark:bg-gray-800 dark:border-gray-700">
+            <Card className="">
               <CardHeader>
-                <CardTitle className="flex items-center dark:text-white">
+                <CardTitle className="flex items-center">
                   <Download className="h-5 w-5 mr-2 text-primary" />
                   Gestão de Dados
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Exportar Dados</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <h4 className="font-medium text-foreground mb-2">Exportar Dados</h4>
+                  <p className="text-sm text-primary/60 mb-4">
                     Descarregue uma cópia de todos os seus dados pessoais
                   </p>
                   <Button
                     onClick={handleExportData}
                     variant="outline"
-                    className="dark:border-gray-600 dark:text-white bg-transparent"
+                    className=" bg-transparent"
                   >
                     <Download className="h-4 w-4 mr-2" />
                     Exportar Dados
@@ -355,17 +355,17 @@ function SettingsContent() {
             </Card>
 
             {/* Danger Zone */}
-            <Card className="border-red-200 dark:border-red-800 dark:bg-gray-800">
+            <Card className="border-red-200">
               <CardHeader>
-                <CardTitle className="flex items-center text-red-600 dark:text-red-400">
+                <CardTitle className="flex items-center text-red-600">
                   <Trash2 className="h-5 w-5 mr-2" />
                   Zona Perigosa
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h4 className="font-medium text-gray-900 dark:text-white mb-2">Eliminar Conta</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <h4 className="font-medium text-foreground mb-2">Eliminar Conta</h4>
+                  <p className="text-sm text-primary/60 mb-4">
                     Esta ação eliminará permanentemente a sua conta e todos os dados associados. Esta ação não pode ser
                     desfeita.
                   </p>

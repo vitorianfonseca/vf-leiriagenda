@@ -1,21 +1,32 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Cormorant_Garamond, DM_Sans } from "next/font/google"
 import "./globals.css"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
+import { ThemeProvider } from "@/hooks/use-theme"
+import { I18nProvider } from "@/hooks/use-i18n"
 import { AuthProvider } from "@/contexts/auth-context"
 import { ToastProvider } from "@/contexts/toast-context"
+import { NotificationProvider } from "@/contexts/notification-context"
+import { DataInitializer } from "@/components/data-initializer"
 import { ToastContainer } from "@/components/toast-container"
-import { I18nProvider } from "@/hooks/use-i18n"
-import { ThemeProvider } from "@/hooks/use-theme"
+import { Header } from "@/components/header"
+import { Footer } from "@/components/footer"
 
-const inter = Inter({ subsets: ["latin"] })
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-display",
+})
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+})
 
 export const metadata: Metadata = {
   title: "LeiriAgenda - Eventos em Leiria",
   description: "Descubra os melhores eventos culturais, sociais e criativos em Leiria, Portugal",
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -25,19 +36,22 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body className={`${cormorant.variable} ${dmSans.variable} font-sans`}>
         <ThemeProvider>
           <I18nProvider>
-            <AuthProvider>
-              <ToastProvider>
-                <div className="min-h-screen flex flex-col">
-                  <Header />
-                  <main className="flex-1">{children}</main>
-                  <Footer />
-                </div>
-                <ToastContainer />
-              </ToastProvider>
-            </AuthProvider>
+            <ToastProvider>
+              <AuthProvider>
+                <NotificationProvider>
+                  <DataInitializer />
+                  <div className="min-h-screen flex flex-col">
+                    <Header />
+                    {children}
+                    <Footer />
+                  </div>
+                  <ToastContainer />
+                </NotificationProvider>
+              </AuthProvider>
+            </ToastProvider>
           </I18nProvider>
         </ThemeProvider>
       </body>

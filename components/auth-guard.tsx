@@ -21,8 +21,8 @@ export function AuthGuard({ children, fallback, message }: AuthGuardProps) {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="animate-pulse text-gray-500 dark:text-gray-400">{t("common.loading")}</div>
+      <div className="flex-1 bg-background flex items-center justify-center">
+        <div className="animate-pulse text-primary/50 font-sans text-sm">{t("common.loading")}</div>
       </div>
     )
   }
@@ -30,19 +30,19 @@ export function AuthGuard({ children, fallback, message }: AuthGuardProps) {
   if (!isAuthenticated) {
     return (
       fallback || (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
-          <Card className="w-full max-w-md mx-auto dark:bg-gray-800 dark:border-gray-700">
-            <CardHeader className="text-center">
-              <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Lock className="h-8 w-8 text-gray-400" />
+        <div className="flex-1 bg-background flex items-center justify-center p-4">
+          <Card className="w-full max-w-sm mx-auto border border-border shadow-lg">
+            <CardHeader className="text-center pb-2">
+              <div className="w-14 h-14 bg-primary/8 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Lock className="h-6 w-6 text-primary/60" />
               </div>
-              <CardTitle className="dark:text-white">{t("auth.loginRequired")}</CardTitle>
+              <CardTitle className="font-display font-light text-2xl text-foreground">{t("auth.loginRequired")}</CardTitle>
             </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-gray-600 dark:text-gray-400">{message || t("auth.loginMessage")}</p>
-              <div className="space-y-2">
+            <CardContent className="text-center space-y-4 pt-2">
+              <p className="text-sm text-primary/60 font-sans leading-relaxed">{message || t("auth.loginMessage")}</p>
+              <div className="space-y-2 pt-2">
                 <Link href="/login" className="block">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-white">
+                  <Button className="w-full bg-primary hover:bg-primary/90 text-white font-sans text-sm tracking-wide transition-all duration-300">
                     <User className="h-4 w-4 mr-2" />
                     {t("auth.login")}
                   </Button>
@@ -50,7 +50,7 @@ export function AuthGuard({ children, fallback, message }: AuthGuardProps) {
                 <Link href="/registo" className="block">
                   <Button
                     variant="outline"
-                    className="w-full border-primary text-primary hover:bg-primary hover:text-white bg-transparent dark:border-primary dark:text-primary"
+                    className="w-full border-primary/30 text-primary hover:bg-primary hover:text-white font-sans text-sm tracking-wide transition-all duration-300"
                   >
                     {t("auth.createAccount")}
                   </Button>

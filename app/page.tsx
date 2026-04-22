@@ -114,7 +114,7 @@ export default function HomePage() {
               src="/images/leiria-castle-illustration.png"
               alt="Castelo de Leiria"
               fill
-              className="object-contain opacity-5 dark:opacity-3 scale-[2.5] md:scale-[2.2] lg:scale-[2.0] translate-y-20 md:translate-y-16 lg:translate-y-12"
+              className="object-contain opacity-5 scale-[2.5] md:scale-[2.2] lg:scale-[2.0] translate-y-20 md:translate-y-16 lg:translate-y-12"
               priority
               quality={100}
               sizes="100vw"
@@ -128,22 +128,27 @@ export default function HomePage() {
         {/* Content */}
         <div className="relative z-20 container mx-auto px-4 w-full flex items-center justify-center min-h-screen">
           <div className="max-w-4xl mx-auto text-center -mt-24">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 drop-shadow-lg">
-              {t("hero.title")} <span className="text-primary">Leiria</span>
+            <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-primary/60 font-sans font-medium mb-5">
+              Leiria, Portugal
+            </p>
+            <h1 className="font-display font-light text-5xl md:text-7xl lg:text-8xl mb-4 leading-[1.05] tracking-tight" style={{color: '#2A1505'}}>
+              {t("hero.title")}{" "}
+              <span className="italic font-semibold text-primary">Leiria</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-800 dark:text-gray-200 mb-12 max-w-2xl mx-auto drop-shadow-md">
+            <div className="w-16 h-px bg-primary/40 mx-auto my-6" />
+            <p className="text-lg md:text-xl text-primary/70 mb-12 max-w-xl mx-auto font-sans font-light leading-relaxed tracking-wide">
               {t("hero.subtitle")}
             </p>
 
             {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
               <div className="relative flex items-center">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 h-5 w-5 z-10" />
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary/40 h-5 w-5 z-10" />
                 <Input
                   placeholder={t("hero.searchPlaceholder")}
-                  className="w-full pl-12 pr-32 py-4 text-lg border-2 border-primary/20 focus:border-primary rounded-full bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm text-gray-900 dark:text-white placeholder:text-gray-600 dark:placeholder:text-gray-400 h-14 shadow-xl"
+                  className="w-full pl-12 pr-36 py-4 text-base border border-primary/20 focus:border-primary/50 rounded-full bg-white/90 backdrop-blur-sm text-primary placeholder:text-primary/40 h-14 shadow-lg font-sans"
                 />
-                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 text-white rounded-full px-6 py-2 h-12 shadow-lg">
+                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 text-white rounded-full px-7 py-2 h-12 shadow-md transition-all duration-300 font-sans text-sm tracking-wide">
                   {t("hero.searchButton")}
                 </Button>
               </div>
@@ -153,17 +158,17 @@ export default function HomePage() {
       </section>
 
       {/* Featured Events */}
-      <section className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-end justify-between mb-12">
             <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{t("events.featured")}</h2>
-              <p className="text-gray-600 dark:text-gray-400">{t("events.featuredSubtitle")}</p>
+              <p className="text-xs tracking-[0.3em] uppercase text-primary/50 font-sans font-medium mb-2">Em destaque</p>
+              <h2 className="font-display text-4xl md:text-5xl font-light text-foreground leading-tight">{t("events.featured")}</h2>
             </div>
             <Link href="/eventos">
               <Button
                 variant="outline"
-                className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
+                className="border-primary/30 text-primary hover:bg-primary hover:text-white bg-transparent transition-all duration-300 font-sans text-sm tracking-wide rounded-full px-6"
               >
                 {t("events.viewAll")}
               </Button>
@@ -179,26 +184,29 @@ export default function HomePage() {
       </section>
 
       {/* Categories */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-20 bg-muted/40 border-y border-border">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{t("categories.title")}</h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">{t("categories.subtitle")}</p>
+            <p className="text-xs tracking-[0.3em] uppercase text-primary/50 font-sans font-medium mb-2">Explorar</p>
+            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground mb-3">{t("categories.title")}</h2>
+            <p className="text-primary/60 max-w-xl mx-auto font-sans font-light leading-relaxed">{t("categories.subtitle")}</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
             {categories.map((category) => {
               const IconComponent = category.icon
               return (
                 <Link key={category.key} href={`/eventos?categoria=${category.key}`}>
-                  <div className="bg-white dark:bg-gray-700 p-6 rounded-lg text-center hover:shadow-md transition-shadow cursor-pointer group">
-                    <div className="flex justify-center mb-2">
-                      <IconComponent className="w-8 h-8 text-primary group-hover:text-primary/80 transition-colors" />
+                  <div className="bg-card border border-border/60 p-5 rounded-xl text-center hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+                    <div className="flex justify-center mb-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
+                        <IconComponent className="w-5 h-5 text-primary" />
+                      </div>
                     </div>
-                    <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                    <h3 className="font-sans font-medium text-sm text-foreground mb-0.5">
                       {category.name}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-primary/50">
                       {category.count} {t("categories.events")}
                     </p>
                   </div>
@@ -210,14 +218,14 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-palette-deep via-palette-accent to-palette-warm-dark relative overflow-hidden">
-        {/* Overlay para profundidade */}
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h2 className="text-3xl font-bold text-white mb-4">{t("cta.title")}</h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">{t("cta.subtitle")}</p>
+      <section className="py-24 bg-primary">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-xs tracking-[0.35em] uppercase text-white/50 font-sans font-medium mb-4">O seu evento</p>
+          <h2 className="font-display text-4xl md:text-5xl font-light text-white mb-4 leading-tight">{t("cta.title")}</h2>
+          <div className="w-12 h-px bg-white/30 mx-auto my-5" />
+          <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto font-sans font-light leading-relaxed">{t("cta.subtitle")}</p>
           <Link href="/submeter">
-            <Button size="lg" className="bg-white text-primary hover:bg-gray-100 font-semibold px-8 py-3">
+            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-sans font-medium tracking-wide px-10 py-3 rounded-full shadow-lg transition-all duration-300">
               {t("cta.submitEvent")}
             </Button>
           </Link>

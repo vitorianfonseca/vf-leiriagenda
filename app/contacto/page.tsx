@@ -2,6 +2,7 @@
 
 import type React from "react"
 
+import { useToast } from "@/contexts/toast-context"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,19 +11,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Mail, Phone, MapPin, Clock } from "lucide-react"
 
 export default function ContactPage() {
+  const { addToast } = useToast()
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    alert("Mensagem enviada com sucesso!")
+    addToast("Mensagem enviada com sucesso!", "success")
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex-1 bg-background">
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Contacte-nos</h1>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h1 className="text-3xl font-bold text-foreground mb-4">Contacte-nos</h1>
+            <p className="text-primary/60 max-w-2xl mx-auto">
               Tem alguma questão ou sugestão? Estamos aqui para ajudar. Entre em contacto connosco!
             </p>
           </div>
@@ -78,25 +80,25 @@ export default function ContactPage() {
                   <div className="flex items-start space-x-4">
                     <Mail className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900">Email</h3>
-                      <p className="text-gray-600">contacto@leiria-agenda.pt</p>
-                      <p className="text-gray-600">suporte@leiria-agenda.pt</p>
+                      <h3 className="font-semibold text-foreground">Email</h3>
+                      <p className="text-primary/60">contacto@leiria-agenda.pt</p>
+                      <p className="text-primary/60">suporte@leiria-agenda.pt</p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
                     <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900">Telefone</h3>
-                      <p className="text-gray-600">+351 244 000 000</p>
+                      <h3 className="font-semibold text-foreground">Telefone</h3>
+                      <p className="text-primary/60">+351 244 000 000</p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
                     <MapPin className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900">Morada</h3>
-                      <p className="text-gray-600">
+                      <h3 className="font-semibold text-foreground">Morada</h3>
+                      <p className="text-primary/60">
                         Rua Exemplo, 123
                         <br />
                         2400-000 Leiria
@@ -109,8 +111,8 @@ export default function ContactPage() {
                   <div className="flex items-start space-x-4">
                     <Clock className="h-6 w-6 text-primary mt-1" />
                     <div>
-                      <h3 className="font-semibold text-gray-900">Horário de Atendimento</h3>
-                      <p className="text-gray-600">
+                      <h3 className="font-semibold text-foreground">Horário de Atendimento</h3>
+                      <p className="text-primary/60">
                         Segunda a Sexta: 9:00 - 18:00
                         <br />
                         Sábado: 9:00 - 13:00
@@ -128,22 +130,22 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Como submeto um evento?</h4>
-                    <p className="text-gray-600 text-sm">
+                    <h4 className="font-semibold text-foreground mb-2">Como submeto um evento?</h4>
+                    <p className="text-primary/60 text-sm">
                       Visite a página "Submeter" e preencha o formulário com todas as informações do seu evento.
                     </p>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Os eventos são gratuitos para divulgar?</h4>
-                    <p className="text-gray-600 text-sm">
+                    <h4 className="font-semibold text-foreground mb-2">Os eventos são gratuitos para divulgar?</h4>
+                    <p className="text-primary/60 text-sm">
                       Sim! A divulgação de eventos na LeiriAgenda é completamente gratuita.
                     </p>
                   </div>
 
                   <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Quanto tempo demora a aprovação?</h4>
-                    <p className="text-gray-600 text-sm">
+                    <h4 className="font-semibold text-foreground mb-2">Quanto tempo demora a aprovação?</h4>
+                    <p className="text-primary/60 text-sm">
                       Normalmente aprovamos eventos em 24-48 horas após a submissão.
                     </p>
                   </div>

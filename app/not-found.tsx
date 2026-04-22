@@ -4,13 +4,13 @@ import { Calendar, Home } from "lucide-react"
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div className="min-h-screen bg-background flex items-center justify-center">
       <div className="text-center">
         <div className="mb-8">
           <Calendar className="h-24 w-24 text-primary mx-auto mb-4" />
-          <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-          <h2 className="text-2xl font-semibold text-gray-700 mb-2">Página não encontrada</h2>
-          <p className="text-gray-600 max-w-md mx-auto">
+          <h1 className="text-6xl font-bold text-foreground mb-4">404</h1>
+          <h2 className="text-2xl font-semibold text-foreground/80 mb-2">Página não encontrada</h2>
+          <p className="text-primary/60 max-w-md mx-auto">
             A página que procura não existe ou foi movida. Que tal descobrir alguns eventos fantásticos?
           </p>
         </div>
