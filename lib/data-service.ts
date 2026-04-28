@@ -1,4 +1,5 @@
 // Sistema de dados centralizado para a LeiriAgenda
+import fetchedEventsData from "../data/events.json"
 export interface User {
   id: string
   name: string
@@ -94,7 +95,10 @@ const DEFAULT_ADMIN_USER: User = {
 
 const DEFAULT_USERS: User[] = [DEFAULT_ADMIN_USER]
 
-const DEFAULT_EVENTS: Event[] = [
+// Eventos vindos do fetch diário (data/events.json) + fallback estático
+const FETCHED_EVENTS: Event[] = (fetchedEventsData.events as Event[]) ?? []
+
+const STATIC_FALLBACK_EVENTS: Event[] = [
   {
     id: "1",
     title: "Festival de Música de Leiria 2024",
@@ -144,6 +148,8 @@ const DEFAULT_EVENTS: Event[] = [
     views: 2100
   }
 ]
+
+const DEFAULT_EVENTS: Event[] = FETCHED_EVENTS.length > 0 ? FETCHED_EVENTS : STATIC_FALLBACK_EVENTS
 
 class DataService {
   // Métodos para utilizadores

@@ -1,0 +1,38 @@
+name: Buscar Eventos de Leiria
+
+on:
+  schedule:
+    - cron: "0 7 * * *" # Todos os dias às 7h UTC (8h Lisboa)
+  workflow_dispatch: # Permite correr manualmente
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Buscar eventos
+        env:
+          EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+        run: node scripts/fetch-events.mjs
+
+      - name: Commit e push se houver mudanças
+        run: |
+          git config user.name "leiriagenda-bot"
+          git config user.email "bot@leiriagenda.pt"
+          git add data/events.json
+          if git diff --staged --quiet; then
+            echo "Sem alterações nos eventos"
+          else
+            git commit -m "chore: atualizar eventos de Leiria [$(date '+%Y-%m-%d')]"
+            git push
+          fi
