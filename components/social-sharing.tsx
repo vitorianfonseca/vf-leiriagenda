@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { 
-  Share2, 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  WhatsApp, 
-  Copy, 
-  Mail, 
+  Share2,
+  Facebook,
+  Twitter,
+  Instagram,
+  MessageCircle,
+  Copy,
+  Mail,
   Link as LinkIcon,
   Check,
   X,
@@ -99,7 +99,7 @@ export function SocialSharing({ event, onClose }: SocialSharingProps) {
     },
     {
       name: "WhatsApp",
-      icon: WhatsApp,
+      icon: MessageCircle,
       color: "bg-green-600 hover:bg-green-700",
       action: shareToWhatsApp
     },
@@ -243,7 +243,7 @@ export function SocialSharing({ event, onClose }: SocialSharingProps) {
                 0
               </span>
               <span className="flex items-center">
-                <WhatsApp className="h-4 w-4 mr-1 text-green-600" />
+                <MessageCircle className="h-4 w-4 mr-1 text-green-600" />
                 0
               </span>
             </div>

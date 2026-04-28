@@ -7,7 +7,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Calendar, MapPin, Heart, Music, Palette, Hammer, TreePine, Users, Camera, Utensils, Gamepad2 } from "lucide-react"
+import { Calendar, MapPin, Heart, Music, Palette, Hammer, TreePine, Users, Camera, Utensils, Gamepad2, Film, Theater } from "lucide-react"
 import { useAuth } from "@/contexts/auth-context"
 
 interface FavoriteEventCardProps {
@@ -17,49 +17,23 @@ interface FavoriteEventCardProps {
   time: string
   location: string
   image: string
-  price: string
   category: string
-  isFree: boolean
 }
 
-export function FavoriteEventCard({
-  id,
-  title,
-  date,
-  time,
-  location,
-  image,
-  price,
-  category,
-  isFree,
-}: FavoriteEventCardProps) {
-  // Função para obter o ícone baseado na categoria
+export function FavoriteEventCard({ id, title, date, time, location, image, category }: FavoriteEventCardProps) {
   const getCategoryIcon = (category: string) => {
-    const normalizedCategory = category.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    
-    switch (normalizedCategory) {
-      case 'musica':
-      case 'música':
-        return Music
-      case 'cultura':
-      case 'arte':
-        return Palette
-      case 'workshop':
-        return Hammer
-      case 'desporto':
-      case 'natureza':
-        return TreePine
-      case 'social':
-        return Users
-      case 'fotografia':
-        return Camera
-      case 'gastronomia':
-        return Utensils
-      case 'jogos':
-        return Gamepad2
-      default:
-        return Calendar
-    }
+    const n = category.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "")
+    if (n.includes("music")) return Music
+    if (n.includes("teatro")) return Theater
+    if (n.includes("cinema")) return Film
+    if (n.includes("arte") || n.includes("cultura") || n.includes("exposi")) return Palette
+    if (n.includes("workshop")) return Hammer
+    if (n.includes("desporto")) return TreePine
+    if (n.includes("gastro")) return Utensils
+    if (n.includes("foto")) return Camera
+    if (n.includes("jogo")) return Gamepad2
+    if (n.includes("social")) return Users
+    return Calendar
   }
 
   const CategoryIcon = getCategoryIcon(category)
@@ -75,11 +49,12 @@ export function FavoriteEventCard({
     <Card className="group hover:shadow-lg transition-all duration-300 overflow-hidden">
       <div className="relative">
         <Image
-          src={image || "/placeholder.svg"}
+          src={image || "/images/leiria-castle.jpg"}
           alt={title}
           width={400}
           height={200}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          unoptimized={image?.startsWith("http")}
         />
         <button
           onClick={handleRemoveFavorite}
@@ -88,9 +63,6 @@ export function FavoriteEventCard({
         >
           <Heart className="h-4 w-4 text-red-500 fill-red-500" />
         </button>
-        <Badge className={`absolute top-3 left-3 ${isFree ? "bg-palette-rose-warm" : "bg-primary"} text-white`}>
-          {isFree ? "Gratuito" : price}
-        </Badge>
       </div>
 
       <CardContent className="p-4">
@@ -101,16 +73,12 @@ export function FavoriteEventCard({
           </Badge>
         </div>
 
-        <h3 className="font-semibold text-lg mb-3 line-clamp-2">
-          {title}
-        </h3>
+        <h3 className="font-semibold text-lg mb-3 line-clamp-2">{title}</h3>
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center text-sm text-primary/60">
             <Calendar className="h-4 w-4 mr-2 text-primary" />
-            <span>
-              {date} às {time}
-            </span>
+            <span>{date}{time ? ` às ${time}` : ""}</span>
           </div>
           <div className="flex items-center text-sm text-primary/60">
             <MapPin className="h-4 w-4 mr-2 text-primary" />

@@ -8,76 +8,9 @@ import Link from "next/link"
 import Image from "next/image"
 import { useI18n } from "@/hooks/use-i18n"
 import { AnimatedMeshGradient } from "@/components/animated-mesh-gradient"
+import eventsData from "@/data/events.json"
 
-// Mock data for events
-const featuredEvents = [
-  {
-    id: "1",
-    title: "Festival de Música de Leiria 2024",
-    date: "15 Dez",
-    time: "20:00",
-    location: "Teatro José Lúcio da Silva",
-    image: "/placeholder.svg?height=200&width=400&text=Festival+de+Música",
-    price: "€25",
-    category: "Música",
-    isFree: false,
-  },
-  {
-    id: "2",
-    title: "Mercado de Natal do Castelo",
-    date: "20 Dez",
-    time: "10:00",
-    location: "Castelo de Leiria",
-    image: "/placeholder.svg?height=200&width=400&text=Mercado+de+Natal",
-    price: "Gratuito",
-    category: "Cultura",
-    isFree: true,
-  },
-  {
-    id: "3",
-    title: "Workshop de Cerâmica Tradicional",
-    date: "22 Dez",
-    time: "14:30",
-    location: "Centro Cultural de Leiria",
-    image: "/placeholder.svg?height=200&width=400&text=Workshop+Cerâmica",
-    price: "€15",
-    category: "Workshop",
-    isFree: false,
-  },
-  {
-    id: "4",
-    title: "Caminhada pela Mata Nacional",
-    date: "28 Dez",
-    time: "09:00",
-    location: "Mata Nacional de Leiria",
-    image: "/placeholder.svg?height=200&width=400&text=Caminhada+Mata",
-    price: "Gratuito",
-    category: "Desporto",
-    isFree: true,
-  },
-  {
-    id: "5",
-    title: "Exposição de Arte Contemporânea",
-    date: "30 Dez",
-    time: "15:00",
-    location: "Galeria Municipal",
-    image: "/placeholder.svg?height=200&width=400&text=Exposição+Arte",
-    price: "€8",
-    category: "Arte",
-    isFree: false,
-  },
-  {
-    id: "6",
-    title: "Concerto de Ano Novo",
-    date: "31 Dez",
-    time: "23:00",
-    location: "Praça Rodrigues Lobo",
-    image: "/placeholder.svg?height=200&width=400&text=Concerto+Ano+Novo",
-    price: "Gratuito",
-    category: "Música",
-    isFree: true,
-  },
-]
+const featuredEvents = eventsData.events.slice(0, 6)
 
 export default function HomePage() {
   const { t } = useI18n()
@@ -102,12 +35,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Full Screen */}
+      {/* Hero Section */}
       <section className="relative overflow-hidden h-screen flex items-center">
-        {/* Animated Mesh Gradient Background */}
         <AnimatedMeshGradient />
-        
-        {/* Background Pattern - Castle com qualidade otimizada */}
         <div className="absolute inset-0 flex items-end justify-center pb-4 z-10">
           <div className="relative w-full h-full">
             <Image
@@ -118,20 +48,17 @@ export default function HomePage() {
               priority
               quality={100}
               sizes="100vw"
-              style={{
-                imageRendering: "crisp-edges",
-              }}
+              style={{ imageRendering: "crisp-edges" }}
             />
           </div>
         </div>
 
-        {/* Content */}
         <div className="relative z-20 container mx-auto px-4 w-full flex items-center justify-center min-h-screen">
           <div className="max-w-4xl mx-auto text-center -mt-24">
             <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-primary/60 font-sans font-medium mb-5">
               Leiria, Portugal
             </p>
-            <h1 className="font-display font-light text-5xl md:text-7xl lg:text-8xl mb-4 leading-[1.05] tracking-tight" style={{color: '#2A1505'}}>
+            <h1 className="font-display font-light text-5xl md:text-7xl lg:text-8xl mb-4 leading-[1.05] tracking-tight" style={{ color: "#2A1505" }}>
               {t("hero.title")}{" "}
               <span className="italic font-semibold text-primary">Leiria</span>
             </h1>
@@ -140,7 +67,6 @@ export default function HomePage() {
               {t("hero.subtitle")}
             </p>
 
-            {/* Search Bar */}
             <div className="max-w-2xl mx-auto">
               <div className="relative flex items-center">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary/40 h-5 w-5 z-10" />
@@ -166,10 +92,7 @@ export default function HomePage() {
               <h2 className="font-display text-4xl md:text-5xl font-light text-foreground leading-tight">{t("events.featured")}</h2>
             </div>
             <Link href="/eventos">
-              <Button
-                variant="outline"
-                className="border-primary/30 text-primary hover:bg-primary hover:text-white bg-transparent transition-all duration-300 font-sans text-sm tracking-wide rounded-full px-6"
-              >
+              <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary hover:text-white bg-transparent transition-all duration-300 font-sans text-sm tracking-wide rounded-full px-6">
                 {t("events.viewAll")}
               </Button>
             </Link>
@@ -177,7 +100,16 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredEvents.map((event) => (
-              <EventCard key={event.id} {...event} />
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                date={event.date}
+                time={event.time}
+                location={event.location}
+                image={event.image}
+                category={event.category}
+              />
             ))}
           </div>
         </div>
@@ -203,12 +135,8 @@ export default function HomePage() {
                         <IconComponent className="w-5 h-5 text-primary" />
                       </div>
                     </div>
-                    <h3 className="font-sans font-medium text-sm text-foreground mb-0.5">
-                      {category.name}
-                    </h3>
-                    <p className="text-xs text-primary/50">
-                      {category.count} {t("categories.events")}
-                    </p>
+                    <h3 className="font-sans font-medium text-sm text-foreground mb-0.5">{category.name}</h3>
+                    <p className="text-xs text-primary/50">{category.count} {t("categories.events")}</p>
                   </div>
                 </Link>
               )

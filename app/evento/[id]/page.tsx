@@ -3,39 +3,20 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Calendar, MapPin, Clock, Users, Heart, Share2, ArrowLeft } from "lucide-react"
+import { Calendar, MapPin, Clock, ArrowLeft, ExternalLink } from "lucide-react"
 import { EventComments } from "@/components/event-comments"
 import { QuickShareButton } from "@/components/social-sharing"
-import { BuyTicketButton } from "@/components/buy-ticket-button"
-
-// Mock data for event detail
-const eventData = {
-  id: "1",
-  title: "Festival de Música de Leiria 2024",
-  description:
-    "O Festival de Música de Leiria regressa em 2024 com uma programação excecional que celebra a diversidade musical. Este evento único reúne artistas locais e nacionais numa noite inesquecível no coração da cidade histórica de Leiria.\n\nDesfrute de performances ao vivo, food trucks com sabores regionais e uma atmosfera mágica no Teatro José Lúcio da Silva. Um evento imperdível para todos os amantes da música.",
-  date: "15 de Dezembro, 2024",
-  time: "20:00",
-  endTime: "23:30",
-  location: "Teatro José Lúcio da Silva",
-  address: "Largo 5 de Outubro, 2400-109 Leiria",
-  image: "/placeholder.svg?height=400&width=800",
-  price: "€25",
-  category: "Música",
-  isFree: false,
-  organizer: "Câmara Municipal de Leiria",
-  capacity: 500,
-  attendees: 342,
-  tags: ["Música", "Festival", "Cultura", "Leiria"],
-}
+import eventsData from "@/data/events.json"
 
 export default function EventDetailPage({ params }: { params: { id: string } }) {
+  const event = eventsData.events.find((e) => e.id === params.id) ?? eventsData.events[0]
+
   return (
     <div className="flex-1 bg-background">
       {/* Back Button */}
       <div className="bg-card border-b">
         <div className="container mx-auto px-4 py-4">
-          <Link href="/" className="inline-flex items-center text-primary/60 hover:text-primary transition-colors">
+          <Link href="/eventos" className="inline-flex items-center text-primary/60 hover:text-primary transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Voltar aos eventos
           </Link>
@@ -49,79 +30,55 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
             {/* Event Image */}
             <div className="relative mb-6">
               <Image
-                src={eventData.image || "/placeholder.svg"}
-                alt={eventData.title}
+                src={event.image || "/images/leiria-castle.jpg"}
+                alt={event.title}
                 width={800}
                 height={400}
                 className="w-full h-64 md:h-96 object-cover rounded-lg"
+                unoptimized={event.image?.startsWith("http")}
               />
-              <div className="absolute top-4 left-4">
-                <Badge className={`${eventData.isFree ? "bg-palette-rose-warm" : "bg-primary"} text-white text-lg px-3 py-1`}>
-                  {eventData.isFree ? "Gratuito" : eventData.price}
-                </Badge>
-              </div>
             </div>
 
             {/* Event Info */}
             <div className="bg-card rounded-lg p-6 mb-6">
               <div className="mb-4">
-                <Badge variant="secondary" className="mb-2">
-                  {eventData.category}
-                </Badge>
-                <h1 className="text-3xl font-bold text-foreground mb-4">{eventData.title}</h1>
+                <Badge variant="secondary" className="mb-2">{event.category}</Badge>
+                <h1 className="text-3xl font-bold text-foreground mb-4">{event.title}</h1>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center text-primary/60">
                   <Calendar className="h-5 w-5 mr-3 text-primary" />
-                  <div>
-                    <div className="font-medium">{eventData.date}</div>
-                  </div>
+                  <div className="font-medium">{event.date}</div>
                 </div>
-                <div className="flex items-center text-primary/60">
-                  <Clock className="h-5 w-5 mr-3 text-primary" />
-                  <div>
-                    <div className="font-medium">
-                      {eventData.time} - {eventData.endTime}
-                    </div>
+                {event.time && (
+                  <div className="flex items-center text-primary/60">
+                    <Clock className="h-5 w-5 mr-3 text-primary" />
+                    <div className="font-medium">{event.time}{event.endTime ? ` - ${event.endTime}` : ""}</div>
                   </div>
-                </div>
+                )}
                 <div className="flex items-center text-primary/60">
                   <MapPin className="h-5 w-5 mr-3 text-primary" />
                   <div>
-                    <div className="font-medium">{eventData.location}</div>
-                    <div className="text-sm">{eventData.address}</div>
-                  </div>
-                </div>
-                <div className="flex items-center text-primary/60">
-                  <Users className="h-5 w-5 mr-3 text-primary" />
-                  <div>
-                    <div className="font-medium">{eventData.attendees} participantes</div>
-                    <div className="text-sm">de {eventData.capacity} lugares</div>
+                    <div className="font-medium">{event.location}</div>
+                    {event.address && <div className="text-sm">{event.address}</div>}
                   </div>
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h2 className="text-xl font-semibold mb-3">Sobre o Evento</h2>
-                <div className="text-foreground/80 whitespace-pre-line leading-relaxed">{eventData.description}</div>
-              </div>
-
-              <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3">Organizador</h3>
-                <p className="text-foreground/80">{eventData.organizer}</p>
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold mb-3">Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {eventData.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="border-primary text-primary">
-                      {tag}
-                    </Badge>
-                  ))}
+              {event.description && (
+                <div className="mb-6">
+                  <h2 className="text-xl font-semibold mb-3">Sobre o Evento</h2>
+                  <div className="text-foreground/80 whitespace-pre-line leading-relaxed">{event.description}</div>
                 </div>
-              </div>
+              )}
+
+              {event.organizer && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-2">Organizador</h3>
+                  <p className="text-foreground/80">{event.organizer}</p>
+                </div>
+              )}
             </div>
           </div>
 
@@ -129,84 +86,50 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
           <div className="lg:col-span-1">
             <Card className="sticky top-24">
               <CardContent className="p-6">
-                <div className="text-center mb-6">
-                  <div className="text-3xl font-bold text-primary mb-2">
-                    {eventData.isFree ? "Gratuito" : eventData.price}
-                  </div>
-                  <p className="text-primary/60">por pessoa</p>
-                </div>
-
                 <div className="space-y-3 mb-6">
-                  <BuyTicketButton
-                    eventId={eventData.id}
-                    eventTitle={eventData.title}
-                    price={eventData.price}
-                    isFree={eventData.isFree}
+                  {event.website && (
+                    <Button asChild className="w-full bg-primary hover:bg-primary/90 text-white text-base py-3">
+                      <a href={event.website} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="h-4 w-4 mr-2" />
+                        Ver no site oficial
+                      </a>
+                    </Button>
+                  )}
+                  <QuickShareButton
+                    title={event.title}
+                    url={typeof window !== "undefined" ? window.location.href : ""}
                   />
-
-                  <div className="grid grid-cols-2 gap-2">
-                    <Button
-                      variant="outline"
-                      className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
-                    >
-                      <Heart className="h-4 w-4 mr-2" />
-                      Favorito
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
-                    >
-                      <Share2 className="h-4 w-4 mr-2" />
-                      Partilhar
-                    </Button>
-                  </div>
                 </div>
 
                 <div className="border-t pt-6">
-                  <h3 className="font-semibold mb-3">Detalhes Rápidos</h3>
+                  <h3 className="font-semibold mb-3">Detalhes</h3>
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span className="text-primary/60">Data:</span>
-                      <span className="font-medium">15 Dez 2024</span>
+                      <span className="font-medium text-right">{event.date}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-primary/60">Hora:</span>
-                      <span className="font-medium">20:00 - 23:30</span>
-                    </div>
+                    {event.time && (
+                      <div className="flex justify-between">
+                        <span className="text-primary/60">Hora:</span>
+                        <span className="font-medium">{event.time}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span className="text-primary/60">Local:</span>
-                      <span className="font-medium">Teatro José Lúcio</span>
+                      <span className="font-medium text-right">{event.location}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-primary/60">Categoria:</span>
-                      <span className="font-medium">Música</span>
+                      <span className="font-medium">{event.category}</span>
                     </div>
-                  </div>
-                </div>
-
-                <div className="border-t pt-6 mt-6">
-                  <div className="bg-background rounded-lg p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-primary/60">Lugares ocupados</span>
-                      <span className="text-sm font-medium">
-                        {Math.round((eventData.attendees / eventData.capacity) * 100)}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full"
-                        style={{ width: `${(eventData.attendees / eventData.capacity) * 100}%` }}
-                      ></div>
-                    </div>
-                    <p className="text-xs text-primary/50 mt-2">
-                      {eventData.capacity - eventData.attendees} lugares disponíveis
-                    </p>
                   </div>
                 </div>
               </CardContent>
             </Card>
           </div>
         </div>
+
+        <EventComments eventId={params.id} />
       </div>
     </div>
   )
