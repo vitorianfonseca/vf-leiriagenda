@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, MapPin, Clock, Users, Heart, Share2, ArrowLeft } from "lucide-react"
 import { EventComments } from "@/components/event-comments"
 import { QuickShareButton } from "@/components/social-sharing"
+import { BuyTicketButton } from "@/components/buy-ticket-button"
 
 // Mock data for event detail
 const eventData = {
@@ -136,9 +137,12 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
                 </div>
 
                 <div className="space-y-3 mb-6">
-                  <Button className="w-full bg-primary hover:bg-primary/90 text-white text-lg py-3">
-                    {eventData.isFree ? "Reservar Lugar" : "Comprar Bilhete"}
-                  </Button>
+                  <BuyTicketButton
+                    eventId={eventData.id}
+                    eventTitle={eventData.title}
+                    price={eventData.price}
+                    isFree={eventData.isFree}
+                  />
 
                   <div className="grid grid-cols-2 gap-2">
                     <Button
