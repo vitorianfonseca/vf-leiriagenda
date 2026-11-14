@@ -29,7 +29,7 @@ function Agenda() {
   const [query, setQuery] = useState(params.get("q") ?? "")
   const [when, setWhen] = useState<When>(() => (WHEN.some((w) => w.value === params.get("quando")) ? (params.get("quando") as When) : "todos"))
   const [venue, setVenue] = useState("todos")
-  const [view, setView] = useState<"lista" | "cartazes">("lista")
+  const [view, setView] = useState<"lista" | "cartazes">("cartazes")
 
   // Os eventos submetidos e aprovados vivem no dispositivo; juntam-se aos da cidade.
   useEffect(() => {
@@ -100,7 +100,7 @@ function Agenda() {
           {venues.map((v) => <option key={v} value={v}>{v}</option>)}
         </select>
         <div className="flex h-11 shrink-0 items-center rounded-full border border-[hsl(var(--ink)/0.22)] p-1" role="group" aria-label="Vista">
-          {(["lista", "cartazes"] as const).map((v) => (
+          {(["cartazes", "lista"] as const).map((v) => (
             <button
               key={v}
               type="button"
