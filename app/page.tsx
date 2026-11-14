@@ -1,164 +1,138 @@
 "use client"
 
-import { EventCard } from "@/components/event-card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Music, Palette, Building2, Zap, Wrench, UtensilsCrossed } from "lucide-react"
+import { useMemo, useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
-import { useI18n } from "@/hooks/use-i18n"
-import { AnimatedMeshGradient } from "@/components/animated-mesh-gradient"
+import { useRouter } from "next/navigation"
+import { ArrowUpRight, Search } from "lucide-react"
+
+import { AgendaList } from "@/components/editorial/agenda-list"
+import { PosterFace } from "@/components/editorial/poster-face"
+import { Deck3D } from "@/components/motion/Deck3D"
+import { cleanText, groupByDay, matchesWhen, monthLong, parseEventDate, upcoming, weekday, type AgendaEvent } from "@/lib/agenda"
 import eventsData from "@/data/events.json"
 
-const featuredEvents = eventsData.events.slice(0, 6)
+const ALL = eventsData.events as AgendaEvent[]
 
 export default function HomePage() {
-  const { t } = useI18n()
+  const router = useRouter()
+  const now = useMemo(() => new Date(), [])
+  const next = useMemo(() => upcoming(ALL, now), [now])
+  const today = next.filter((e) => matchesWhen(parseEventDate(e.date), "hoje", now))
+  const weekend = next.filter((e) => matchesWhen(parseEventDate(e.date), "fim-de-semana", now))
+  const venues = new Set(next.map((e) => e.location)).size
 
-  const categoryIcons = {
-    music: Music,
-    art: Palette,
-    culture: Building2,
-    sports: Zap,
-    workshop: Wrench,
-    gastronomy: UtensilsCrossed,
+  // O baralho mostra os próximos eventos que têm cartaz.
+  const posters = useMemo(() => groupByDay(next).flatMap((g) => g.events).filter((e) => e.image).slice(0, 9), [next])
+  const [card, setCard] = useState(Math.min(2, Math.max(posters.length - 1, 0)))
+  const [query, setQuery] = useState("")
+
+  const search = (e: React.FormEvent) => {
+    e.preventDefault()
+    router.push(query.trim() ? `/eventos?q=${encodeURIComponent(query.trim())}` : "/eventos")
   }
 
-  const categories = [
-    { name: t("categories.music"), icon: categoryIcons.music, count: 8, key: "music" },
-    { name: t("categories.art"), icon: categoryIcons.art, count: 6, key: "art" },
-    { name: t("categories.culture"), icon: categoryIcons.culture, count: 5, key: "culture" },
-    { name: t("categories.sports"), icon: categoryIcons.sports, count: 4, key: "sports" },
-    { name: t("categories.workshop"), icon: categoryIcons.workshop, count: 3, key: "workshop" },
-    { name: t("categories.gastronomy"), icon: categoryIcons.gastronomy, count: 2, key: "gastronomy" },
-  ]
-
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden h-screen flex items-center">
-        <AnimatedMeshGradient />
-        <div className="absolute inset-0 flex items-end justify-center pb-4 z-10">
-          <div className="relative w-full h-full">
-            <Image
-              src="/images/leiria-castle-illustration.png"
-              alt="Castelo de Leiria"
-              fill
-              className="object-contain opacity-5 scale-[2.5] md:scale-[2.2] lg:scale-[2.0] translate-y-20 md:translate-y-16 lg:translate-y-12"
-              priority
-              quality={100}
-              sizes="100vw"
-              style={{ imageRendering: "crisp-edges" }}
-            />
-          </div>
-        </div>
-
-        <div className="relative z-20 container mx-auto px-4 w-full flex items-center justify-center min-h-screen">
-          <div className="max-w-4xl mx-auto text-center -mt-24">
-            <p className="text-xs md:text-sm tracking-[0.35em] uppercase text-primary/60 font-sans font-medium mb-5">
-              Leiria, Portugal
-            </p>
-            <h1 className="font-display font-light text-5xl md:text-7xl lg:text-8xl mb-4 leading-[1.05] tracking-tight" style={{ color: "#2A1505" }}>
-              {t("hero.title")}{" "}
-              <span className="italic font-semibold text-primary">Leiria</span>
+    <main className="mx-auto w-full max-w-[1240px] px-5 pt-10 md:px-10 md:pt-14">
+      {/* ── Abertura: as três letras e o baralho de cartazes ───────────────── */}
+      <section className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+        <div className="relative">
+          <p className="t-label mb-5 first-letter:uppercase">{weekday(now)}, {now.getDate()} de {monthLong(now)}</p>
+          <div className="relative w-fit">
+            <h1 className="relative z-[1]">
+              <span className="rise"><span className="t-heavy block text-[clamp(64px,11vw,176px)]">Leiria</span></span>
+              <span className="rise" data-d="1"><span className="t-thin block text-[clamp(64px,11vw,176px)]">Agenda</span></span>
             </h1>
-            <div className="w-16 h-px bg-primary/40 mx-auto my-6" />
-            <p className="text-lg md:text-xl text-primary/70 mb-12 max-w-xl mx-auto font-sans font-light leading-relaxed tracking-wide">
-              {t("hero.subtitle")}
+            <span aria-hidden className="t-script draw absolute bottom-[-0.18em] left-[38%] z-[2] whitespace-nowrap text-[clamp(96px,15vw,240px)]" style={{ rotate: "-7deg" }}>
+              hoje
+            </span>
+          </div>
+
+          <p className="relative z-[3] mt-10 max-w-md text-[18px] leading-relaxed text-[hsl(var(--ink))]">
+            {today.length > 0
+              ? `Há ${today.length} ${today.length === 1 ? "evento" : "eventos"} hoje em Leiria`
+              : "Hoje não há eventos marcados em Leiria"}
+            {weekend.length > 0 ? ` e ${weekend.length} no fim de semana.` : "."}
+          </p>
+
+          <form onSubmit={search} className="relative z-[3] mt-7 flex max-w-md items-center gap-2 rounded-full border border-[hsl(var(--ink)/0.22)] py-1.5 pl-5 pr-1.5 transition-colors focus-within:border-[hsl(var(--ink))]">
+            <Search className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label="Procurar eventos"
+              placeholder="Concerto, teatro, um sítio…"
+              className="min-w-0 flex-1 bg-transparent text-[15px] text-[hsl(var(--ink))] outline-none placeholder:text-muted-foreground"
+            />
+            <button type="submit" className="h-10 rounded-full bg-[hsl(var(--ink))] px-5 text-[14px] font-medium text-[hsl(var(--background))] transition-colors duration-300 hover:bg-[hsl(var(--azul))] hover:text-white">
+              Procurar
+            </button>
+          </form>
+        </div>
+
+        {posters.length > 0 && (
+          <div className="relative hidden lg:block">
+            <Deck3D
+              items={posters.map((e) => ({ id: e.id, label: cleanText(e.title), face: <PosterFace event={e} /> }))}
+              active={card}
+              onActiveChange={setCard}
+              onOpen={(id) => router.push(`/evento/${id}`)}
+              cardWidth={280}
+              cardHeight={380}
+              ariaLabel="Próximos eventos"
+            />
+            <p className="t-label mt-3 text-center">
+              <span className="t-num mr-2 text-[15px]">{card + 1} / {posters.length}</span>
+              Escolhe um cartaz
             </p>
-
-            <div className="max-w-2xl mx-auto">
-              <div className="relative flex items-center">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-primary/40 h-5 w-5 z-10" />
-                <Input
-                  placeholder={t("hero.searchPlaceholder")}
-                  className="w-full pl-12 pr-36 py-4 text-base border border-primary/20 focus:border-primary/50 rounded-full bg-white/90 backdrop-blur-sm text-primary placeholder:text-primary/40 h-14 shadow-lg font-sans"
-                />
-                <Button className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 text-white rounded-full px-7 py-2 h-12 shadow-md transition-all duration-300 font-sans text-sm tracking-wide">
-                  {t("hero.searchButton")}
-                </Button>
-              </div>
-            </div>
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Featured Events */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <p className="text-xs tracking-[0.3em] uppercase text-primary/50 font-sans font-medium mb-2">Em destaque</p>
-              <h2 className="font-display text-4xl md:text-5xl font-light text-foreground leading-tight">{t("events.featured")}</h2>
-            </div>
-            <Link href="/eventos">
-              <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary hover:text-white bg-transparent transition-all duration-300 font-sans text-sm tracking-wide rounded-full px-6">
-                {t("events.viewAll")}
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredEvents.map((event) => (
-              <EventCard
-                key={event.id}
-                id={event.id}
-                title={event.title}
-                date={event.date}
-                time={event.time}
-                location={event.location}
-                image={event.image}
-                category={event.category}
-              />
-            ))}
-          </div>
-        </div>
+      {/* ── Três números ───────────────────────────────────────────────────── */}
+      <section className="mt-20 grid gap-x-12 gap-y-8 sm:grid-cols-3">
+        {[
+          { label: "Hoje", value: today.length, unit: today.length === 1 ? "evento" : "eventos", href: "/eventos?quando=hoje" },
+          { label: "Este fim de semana", value: weekend.length, unit: weekend.length === 1 ? "evento" : "eventos", href: "/eventos?quando=fim-de-semana" },
+          { label: "Na agenda", value: next.length, unit: `em ${venues} sítios`, href: "/eventos" },
+        ].map((f) => (
+          <Link key={f.label} href={f.href} className="group border-t hair pt-4">
+            <span className="flex items-center justify-between">
+              <span className="t-label">{f.label}</span>
+              <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[hsl(var(--azul))]" />
+            </span>
+            <span className="mt-3 flex items-baseline gap-3">
+              <span className="t-num text-[clamp(64px,7vw,104px)]">{f.value}</span>
+              <span className="t-thin text-[24px] normal-case">{f.unit}</span>
+            </span>
+          </Link>
+        ))}
       </section>
 
-      {/* Categories */}
-      <section className="py-20 bg-muted/40 border-y border-border">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary/50 font-sans font-medium mb-2">Explorar</p>
-            <h2 className="font-display text-4xl md:text-5xl font-light text-foreground mb-3">{t("categories.title")}</h2>
-            <p className="text-primary/60 max-w-xl mx-auto font-sans font-light leading-relaxed">{t("categories.subtitle")}</p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
-            {categories.map((category) => {
-              const IconComponent = category.icon
-              return (
-                <Link key={category.key} href={`/eventos?categoria=${category.key}`}>
-                  <div className="bg-card border border-border/60 p-5 rounded-xl text-center hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
-                    <div className="flex justify-center mb-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 transition-colors">
-                        <IconComponent className="w-5 h-5 text-primary" />
-                      </div>
-                    </div>
-                    <h3 className="font-sans font-medium text-sm text-foreground mb-0.5">{category.name}</h3>
-                    <p className="text-xs text-primary/50">{category.count} {t("categories.events")}</p>
-                  </div>
-                </Link>
-              )
-            })}
-          </div>
+      {/* ── A agenda dos próximos dias ─────────────────────────────────────── */}
+      <section className="mt-20">
+        <div className="mb-6 flex items-end justify-between gap-6">
+          <h2 className="t-thin text-[clamp(34px,4.4vw,64px)] normal-case">Nos próximos dias</h2>
+          <Link href="/eventos" className="link-line mb-2 shrink-0 text-[15px]">Ver a agenda toda <ArrowUpRight className="h-4 w-4" /></Link>
         </div>
+        <AgendaList events={next} limitDays={4} />
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-primary">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-xs tracking-[0.35em] uppercase text-white/50 font-sans font-medium mb-4">O seu evento</p>
-          <h2 className="font-display text-4xl md:text-5xl font-light text-white mb-4 leading-tight">{t("cta.title")}</h2>
-          <div className="w-12 h-px bg-white/30 mx-auto my-5" />
-          <p className="text-lg text-white/70 mb-10 max-w-xl mx-auto font-sans font-light leading-relaxed">{t("cta.subtitle")}</p>
-          <Link href="/submeter">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90 font-sans font-medium tracking-wide px-10 py-3 rounded-full shadow-lg transition-all duration-300">
-              {t("cta.submitEvent")}
-            </Button>
+      {/* ── Convite a quem organiza ────────────────────────────────────────── */}
+      <section className="mt-20 grid items-end gap-8 border-t hair pt-12 md:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="relative w-fit">
+          <p className="t-heavy text-[clamp(44px,7.4vw,116px)]">Organizas</p>
+          <p className="t-thin text-[clamp(44px,7.4vw,116px)]">um evento?</p>
+          <span aria-hidden className="t-script absolute bottom-[-0.05em] right-[-0.12em] whitespace-nowrap text-[clamp(64px,10vw,150px)]" style={{ rotate: "-7deg" }}>
+            mostra
+          </span>
+        </div>
+        <div className="max-w-xs md:pb-3">
+          <p className="text-[16px] leading-relaxed text-muted-foreground">Submete-o e aparece na agenda, ao lado dos eventos da cidade.</p>
+          <Link href="/submeter" className="mt-5 inline-flex h-12 items-center gap-2 rounded-full bg-[hsl(var(--ink))] px-7 text-[15px] font-medium text-[hsl(var(--background))] transition-colors duration-300 hover:bg-[hsl(var(--azul))] hover:text-white">
+            Submeter evento <ArrowUpRight className="h-4 w-4" />
           </Link>
         </div>
       </section>
-    </div>
+    </main>
   )
 }

@@ -30,18 +30,18 @@ export function Header() {
 
   const getLinkClasses = (path: string) => {
     return isActivePage(path)
-      ? "text-primary font-medium border-b border-primary pb-0.5 transition-all font-sans text-sm"
-      : "text-primary/60 hover:text-primary transition-colors font-sans text-sm"
+      ? "relative text-[hsl(var(--ink))] font-medium text-sm after:absolute after:-bottom-1.5 after:left-0 after:right-0 after:h-[3px] after:rounded-full after:bg-azul"
+      : "text-muted-foreground hover:text-[hsl(var(--ink))] transition-colors text-sm font-medium"
   }
 
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+    <header className="glass sticky top-3 z-50 mx-auto w-[min(1240px,calc(100%-24px))] rounded-[28px]">
+      <div className="px-5 md:px-7">
+        <div className="flex items-center justify-between h-14">
 
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <span className="font-display text-2xl font-light tracking-wide text-primary">LeiriAgenda</span>
+            <span className="flex items-baseline" aria-label="LeiriAgenda"><span className="t-heavy text-[19px] !leading-none">Leiri</span><span className="t-thin text-[19px] !leading-none">Agenda</span></span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -131,7 +131,7 @@ export function Header() {
                   </Button>
                 </Link>
                 <Link href="/registo">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90 text-white font-sans text-sm tracking-wide rounded-full px-5">
+                  <Button size="sm" className="bg-primary hover:bg-[hsl(var(--azul))] text-primary-foreground hover:text-white text-sm rounded-full px-5 transition-colors duration-300">
                     {t("auth.createAccount")}
                   </Button>
                 </Link>

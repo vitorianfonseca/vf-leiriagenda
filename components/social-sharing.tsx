@@ -270,9 +270,8 @@ export function QuickShareButton({ event }: { event: SocialSharingProps["event"]
     <>
       <Button
         variant="outline"
-        size="sm"
         onClick={() => setShowSharing(true)}
-        className="border-primary text-primary hover:bg-primary hover:text-white bg-transparent"
+        className="h-12 border-[hsl(var(--ink)/0.25)] bg-transparent px-6 text-[15px] text-[hsl(var(--ink))] hover:border-[hsl(var(--ink))] hover:bg-transparent"
       >
         <Share2 className="h-4 w-4 mr-2" />
         Partilhar
@@ -282,10 +281,10 @@ export function QuickShareButton({ event }: { event: SocialSharingProps["event"]
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div 
-              className="fixed inset-0 bg-muted/400 bg-opacity-75 transition-opacity"
+              className="fixed inset-0 bg-[hsl(var(--ink)/0.45)] backdrop-blur-sm transition-opacity"
               onClick={() => setShowSharing(false)}
             />
-            <div className="inline-block align-bottom bg-card rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
+            <div className="inline-block align-bottom bg-card rounded-[26px] text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md sm:w-full">
               <SocialSharing 
                 event={event} 
                 onClose={() => setShowSharing(false)} 

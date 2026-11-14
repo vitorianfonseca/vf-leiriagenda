@@ -11,6 +11,7 @@ import { DataInitializer } from "@/components/data-initializer"
 import { ToastContainer } from "@/components/toast-container"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { CursorDot } from "@/components/motion/CursorDot"
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -26,8 +27,7 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "LeiriAgenda - Eventos em Leiria",
   description: "Descubra os melhores eventos culturais, sociais e criativos em Leiria, Portugal",
-  generator: "v0.dev",
-}
+  }
 
 export default function RootLayout({
   children,
@@ -43,12 +43,13 @@ export default function RootLayout({
               <AuthProvider>
                 <NotificationProvider>
                   <DataInitializer />
-                  <div className="min-h-screen flex flex-col">
+                  <div className="min-h-screen flex flex-col overflow-x-clip">
                     <Header />
                     {children}
                     <Footer />
                   </div>
                   <ToastContainer />
+                  <CursorDot />
                 </NotificationProvider>
               </AuthProvider>
             </ToastProvider>

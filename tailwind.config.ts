@@ -27,8 +27,8 @@ const config: Config = {
         popover: "hsl(var(--popover))",
         "popover-foreground": "hsl(var(--popover-foreground))",
         primary: {
-          DEFAULT: "#1F0D04", // Castanho muito escuro principal
-          foreground: "#FFFFFF",
+          DEFAULT: "hsl(var(--ink))",
+          foreground: "hsl(var(--background))",
         },
         secondary: {
           DEFAULT: "#120602", // Castanho quase preto
@@ -81,8 +81,8 @@ const config: Config = {
         'gradient-brown-radial': 'radial-gradient(circle, #231008, #3A1B06, #6B3E1E)',
       },
       fontFamily: {
-        display: ["var(--font-display)", "Georgia", "serif"],
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["Boska", "Georgia", "serif"],
+        sans: ["Switzer", "var(--font-sans)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
